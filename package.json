@@ -1,0 +1,15 @@
+{
+    "name": "foreign-exchange",
+    "version": "1.0.0",
+    "description": "Foreign Exchange",
+    "author": {
+        "name": "Ivan Kolesnik",
+        "email": "greenheart19991@gmail.com"
+    },
+    "devDependencies": {
+        "eslint": "^6.8.0",
+        "eslint-config-airbnb-base": "^14.1.0",
+        "eslint-plugin-import": "^2.20.2",
+        "husky": "^3.0.1"
+    }
+}

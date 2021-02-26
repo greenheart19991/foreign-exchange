@@ -1,0 +1,14 @@
+# IDE files
+.idea
+
+# Log files
+*.log
+
+# Env variables
+.env
+
+# Compilation results
+frontend/dist/
+
+# Dependency directory
+node_modules/
