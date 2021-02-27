@@ -17,6 +17,7 @@ const getStyleLoaders = (cssLoaderOptions) => ([
         options: cssLoaderOptions
     },
     'postcss-loader',
+    'resolve-url-loader',
     'sass-loader'
 ]);
 

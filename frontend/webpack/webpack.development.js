@@ -1,5 +1,3 @@
-/* eslint-disable no-multi-spaces */
-
 const webpack = require('webpack');
 const HtmlPlugin = require('html-webpack-plugin');
 const paths = require('./paths');
@@ -17,7 +15,8 @@ const getStyleLoaders = (cssLoaderOptions) => ([
         }
     },
     { loader: 'postcss-loader', options: { sourceMap: true } },
-    { loader: 'sass-loader',    options: { sourceMap: true } }
+    { loader: 'resolve-url-loader', options: { sourceMap: true } },
+    { loader: 'sass-loader', options: { sourceMap: true } }
 ]);
 
 module.exports = {
