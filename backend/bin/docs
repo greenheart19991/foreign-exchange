@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -e
+
+current_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")"; pwd -P)
+cd "$current_dir"
+
+usage() {
+  echo -e "Usage: docs [command]\n"
+  echo    "Commands:"
+  echo    "  build    Build docs page"
+  echo -e "  dev      Start dev mode: automatically rebuild docs page on any specs changes\n"
+}
+
+case "$1" in
+build)
+  mkdir -p ../docs/build
+  merge-yaml -i ../docs/specs/*.yml \
+                ../docs/specs/*.yaml \
+                ../docs/specs/**/*.yml \
+                ../docs/specs/**/*.yaml \
+             -o ../docs/build/api.yml
+
+  echo "Generating client..."
+  spectacle -q \
+            -t ../docs/dist \
+            -l ../docs/assets/logo.png \
+            ../docs/build/api.yml
+
+  echo "Done."
+  ;;
+dev)
+  nodemon -w ../docs/specs/ \
+          -e yml,yaml \
+          -x "npm run docs -- build"
+  ;;
+-h | --help)
+  usage
+  exit
+  ;;
+*)
+  usage
+  exit 1
+  ;;
+esac

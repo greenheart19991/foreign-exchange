@@ -1,0 +1,45 @@
+paths:
+
+  /banks:
+    get:
+      tags:
+        - banks
+      summary: List Banks
+      description: Returns list of known Banks
+      operationId: getBanks
+      produces:
+        - application/json
+      parameters:
+        - name: countryId
+          in: query
+          type: integer
+          format: int32
+          description: ID of Country that Banks are related to
+          example: 1
+        - name: sourceType
+          in: query
+          schema:
+            type: string
+            enum: [commercialBank, centralBank]
+          description: >
+            Type of Banks to return:
+             * `commercialBank` = commercial banks
+             * `centralBank` = central banks
+          example: commecialBank
+      responses:
+        200:
+          description: Successfull operation
+          schema:
+            type: array
+            items:
+              # ../definitions/bank.yml
+              $ref: '#/definitions/Bank'
+        400:
+          # ../responses/common.yml
+          $ref: '#/responses/400'
+        404:
+          # ../responses/common.yml
+          $ref: '#/responses/404'
+        500:
+          # ../responses/common.yml
+          $ref: '#/responses/500'

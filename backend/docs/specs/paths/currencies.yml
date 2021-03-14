@@ -1,0 +1,28 @@
+paths:
+
+  /currencies:
+    get:
+      tags:
+        - currencies
+      summary: List Currencies
+      description: Returns list of known Currencies
+      operationId: getCurrencies
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successfull operation
+          schema:
+            type: array
+            items:
+              # ../definitions/currency.yml
+              $ref: '#/definitions/Currency'
+        400:
+          # ../responses/common.yml
+          $ref: '#/responses/400'
+        404:
+          # ../responses/common.yml
+          $ref: '#/responses/404'
+        500:
+          # ../responses/common.yml
+          $ref: '#/responses/500'

@@ -1,0 +1,21 @@
+swagger: "2.0"
+info:
+  description: Official documentation of Foreign Exchange Service.
+  version: 1.0.0
+  title: Foreign Exchange API
+  contact:
+    name: Ivan Kolesnik
+    email: i.kolesnik.work@gmail.com
+
+host: "{this_host}"
+basePath: /api
+schemes:
+  - http
+
+tags:
+  - name: countries
+    description: Countries CRUD operations
+  - name: banks
+    description: Banks CRUD operations
+  - name: currencies
+    description: Currencies CRUD operations

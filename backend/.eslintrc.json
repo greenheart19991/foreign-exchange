@@ -1,0 +1,26 @@
+{
+    "env": {
+        "node": true
+    },
+    "rules": {
+        "no-unused-vars": [
+            "error",
+            {
+                "args": "none"
+            }
+        ],
+        "camelcase": "off",
+        "class-methods-use-this": "off"
+    },
+    "overrides": [
+        {
+            "files": [
+                "./bin/**",
+                "./migrations/**"
+            ],
+            "rules": {
+                "import/no-extraneous-dependencies": "off"
+            }
+        }
+    ]
+}

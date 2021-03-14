@@ -10,5 +10,8 @@
 # Compilation results
 frontend/dist/
 
+backend/docs/build/
+backend/docs/dist/
+
 # Dependency directory
 node_modules/

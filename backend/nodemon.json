@@ -1,0 +1,7 @@
+{
+    "watch": [
+        "./src/",
+        "./config/"
+    ],
+    "exec": "eslint ./src ./config && node ./src/app | pino-pretty -t"
+}
