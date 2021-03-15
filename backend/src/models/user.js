@@ -8,7 +8,7 @@ const User = sequelize.define('User', {
         autoIncrement: true,
         primaryKey: true
     },
-    userRole: {
+    role: {
         type: Sequelize.ENUM,
         values: [ROLE_USER, ROLE_ADMIN],
         allowNull: false
@@ -22,7 +22,7 @@ const User = sequelize.define('User', {
         allowNull: false
     },
     email: {
-        type: Sequelize.STRING(255),
+        type: Sequelize.CITEXT,
         unique: true,
         allowNull: false
     },

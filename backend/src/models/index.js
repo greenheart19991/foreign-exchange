@@ -61,7 +61,7 @@ Grant.belongsTo(Subscription);
 User.hasMany(RequestsUsage, { foreignKey: 'userId', ...fkConstraints.RequestsUsage.userId });
 RequestsUsage.belongsTo(User);
 
-User.hasMany(Key, { foreignKey: 'userId', ...fkConstraints.Key.userId });
+User.hasOne(Key, { foreignKey: 'userId', ...fkConstraints.Key.userId });
 Key.belongsTo(User);
 
 module.exports = {

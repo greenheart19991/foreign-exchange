@@ -1,0 +1,65 @@
+[
+    {
+        "name": "Sub Trial",
+        "period_type": "month",
+        "periods": 1,
+        "price": 0,
+        "requests": 100,
+        "start_timestamp": "2020-01-01T00:00:00.000Z",
+        "end_timestamp": null
+    },
+    {
+        "name": "Sub Month Full",
+        "period_type": "month",
+        "periods": 1,
+        "price": 49,
+        "requests": 50000,
+        "start_timestamp": "2020-01-01T00:00:00.000Z",
+        "end_timestamp": null
+    },
+    {
+        "name": "Sub Year Full",
+        "period_type": "month",
+        "periods": 12,
+        "price": 539,
+        "requests": 50000,
+        "start_timestamp": "2020-01-01T00:00:00.000Z",
+        "end_timestamp": null
+    },
+    {
+        "name": "Sub Year Req-Unlimited Full",
+        "period_type": "year",
+        "periods": 1,
+        "price": 690,
+        "requests": 600000,
+        "start_timestamp": "2020-01-01T00:00:00.000Z",
+        "end_timestamp": "2020-06-01T00:00:00.000Z"
+    },
+    {
+        "name": "Sub Month Medium",
+        "period_type": "month",
+        "periods": 1,
+        "price": 25,
+        "requests": 10000,
+        "start_timestamp": "2020-01-15T00:00:00.000Z",
+        "end_timestamp": "2021-01-15T00:00:00.000Z"
+    },
+    {
+        "name": "Sub Year Medium",
+        "period_type": "month",
+        "periods": 12,
+        "price": 275,
+        "requests": 10000,
+        "start_timestamp": "2020-11-03T00:00:00.000Z",
+        "end_timestamp": "2021-11-03T00:00:00.000Z"
+    },
+    {
+        "name": "Sub Month Medium Special",
+        "period_type": "month",
+        "periods": 6,
+        "price": 135,
+        "requests": 12000,
+        "start_timestamp": "2021-01-01T00:00:00.000Z",
+        "end_timestamp": "2021-06-01T00:00:00.000Z"
+    }
+]

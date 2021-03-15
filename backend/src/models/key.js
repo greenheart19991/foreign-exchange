@@ -1,18 +1,14 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../../config/sequelize');
 
-const Order = sequelize.define('Order', {
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    },
+const Key = sequelize.define('Key', {
     userId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        primaryKey: true
     },
     key: {
-        type: Sequelize.STRING(24),
+        type: Sequelize.STRING(24).BINARY,
+        unique: true,
         allowNull: false
     }
 }, {
@@ -20,4 +16,4 @@ const Order = sequelize.define('Order', {
     underscored: true
 });
 
-module.exports = Order;
+module.exports = Key;

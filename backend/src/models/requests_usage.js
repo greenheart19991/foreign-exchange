@@ -17,8 +17,7 @@ const RequestsUsage = sequelize.define('RequestsUsage', {
     },
     requestsUsed: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        defaultValue: 0
+        allowNull: false
     }
 }, {
     timestamps: false,
