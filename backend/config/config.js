@@ -29,6 +29,13 @@ const schema = Joi.object({
     PG_PASSWORD: Joi.string()
         .required(),
 
+    REDIS_PORT: Joi.number()
+        .default(6379),
+    REDIS_HOST: Joi.string()
+        .default('localhost'),
+    REDIS_PASSWORD: Joi.string()
+        .required(),
+
     DB_ENABLE_LOGGING: Joi.bool()
         .default(true),
     HTTP_ENABLE_LOGGING: Joi.bool()
@@ -62,6 +69,11 @@ module.exports = {
         db: envVars.PG_DB,
         user: envVars.PG_USER,
         password: envVars.PG_PASSWORD
+    },
+    redis: {
+        port: envVars.REDIS_PORT,
+        host: envVars.REDIS_HOST,
+        password: envVars.REDIS_PASSWORD
     },
     logging: {
         modules: {
