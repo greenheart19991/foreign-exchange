@@ -12,7 +12,7 @@ const up = (qi, Sequelize) => qi.sequelize.transaction(
                 onDelete: 'cascade'
             },
             key: {
-                type: Sequelize.STRING(24).BINARY,
+                type: Sequelize.STRING(24),
                 unique: true,
                 allowNull: false
             }
@@ -20,7 +20,7 @@ const up = (qi, Sequelize) => qi.sequelize.transaction(
 
         await qi.addConstraint('keys', ['key'], {
             type: 'check',
-            name: 'keys_key_not_empty_check',
+            name: 'keys_key_empty_check',
             where: { key: { [Sequelize.Op.ne]: '' } },
             transaction
         });

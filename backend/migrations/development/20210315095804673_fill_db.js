@@ -1,5 +1,5 @@
 const subscriptionVOs = require('./data/20210315095804673/subscriptions.json');
-const userVOs = require('./data/20210315095804673/users.json');
+const userVOs = require('./data/20210315095804673/users.js');
 const orderVOs = require('./data/20210315095804673/orders.json');
 const grantVOs = require('./data/20210315095804673/grants.json');
 const requestsUsageVOs = require('./data/20210315095804673/requests_usage.json');

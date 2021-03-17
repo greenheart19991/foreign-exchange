@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../../config/sequelize');
-const { PERIOD_TYPE_MONTH, PERIOD_TYPE_YEAR } = require('../consts/period_types');
+const { PERIOD_TYPE_MONTH, PERIOD_TYPE_YEAR } = require('../constants/period_types');
 
 const Subscription = sequelize.define('Subscription', {
     id: {

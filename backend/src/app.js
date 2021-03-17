@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const config = require('../config/config');
 const logger = require('../config/logger');
 const APIError = require('./errors/api_error');
+const router = require('./router');
 
 const app = express();
 
@@ -22,7 +23,11 @@ if (config.env === 'development') {
     ));
 }
 
-// app.use('/api', routes);
+if (config.env === 'production') {
+    app.set('trust proxy', config.trustProxy);
+}
+
+app.use('/api', router);
 
 app.use((req, res) => {
     logger.warn(`Handler of ${req.method} '${req.url}' not found`);

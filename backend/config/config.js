@@ -1,4 +1,5 @@
 const path = require('path');
+const ms = require('ms');
 const Joi = require('@hapi/joi');
 const dotenv = require('dotenv');
 
@@ -9,6 +10,14 @@ const dotenvResult = dotenv.config({
 if (dotenvResult.error) {
     throw dotenvResult.error;
 }
+
+const msValueValidateFn = (v, helpers) => {
+    if (ms(v) === undefined) {
+        helpers.error('any.invalid');
+    }
+
+    return v;
+};
 
 const schema = Joi.object({
     NODE_ENV: Joi.string()
@@ -52,7 +61,29 @@ const schema = Joi.object({
             'debug',
             'trace'
         )
-        .default('info')
+        .default('info'),
+
+    SESSION_REFRESH_INTERVAL: Joi.string()
+        .custom(msValueValidateFn)
+        .required(),
+    SESSION_EXPIRES_IN: Joi.string()
+        .custom(msValueValidateFn)
+        .required(),
+
+    BCRYPT_SALT_ROUNDS: Joi.number()
+        .required(),
+
+    SECURE_COOKIE: Joi.bool()
+        .default(false),
+
+    TRUST_PROXY: [
+        Joi.bool()
+            .required(),
+        Joi.number()
+            .required(),
+        Joi.string()
+            .required()
+    ]
 }).unknown();
 
 const { error, value: envVars } = schema.validate(process.env);
@@ -81,5 +112,16 @@ module.exports = {
             http: envVars.HTTP_ENABLE_LOGGING
         },
         level: envVars.LOG_LEVEL
-    }
+    },
+    session: {
+        refreshInterval: ms(envVars.SESSION_REFRESH_INTERVAL),
+        expiresIn: ms(envVars.SESSION_EXPIRES_IN)
+    },
+    bcrypt: {
+        saltRounds: envVars.BCRYPT_SALT_ROUNDS
+    },
+    cookie: {
+        secure: envVars.SECURE_COOKIE
+    },
+    trustProxy: envVars.TRUST_PROXY
 };

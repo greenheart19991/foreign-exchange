@@ -40,7 +40,7 @@ const up = (qi, Sequelize) => qi.sequelize.transaction(
 
         await qi.addConstraint('subscriptions', ['name'], {
             type: 'check',
-            name: 'subscriptions_name_not_empty_check',
+            name: 'subscriptions_name_empty_check',
             where: { name: { [Sequelize.Op.ne]: '' } },
             transaction
         });

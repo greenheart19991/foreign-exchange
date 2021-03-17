@@ -29,7 +29,7 @@ const up = (qi, Sequelize) => qi.sequelize.transaction(
                 allowNull: false
             },
             password: {
-                type: Sequelize.STRING(60).BINARY,
+                type: Sequelize.STRING(60),
                 allowNull: false
             },
             is_active: {
@@ -40,14 +40,14 @@ const up = (qi, Sequelize) => qi.sequelize.transaction(
 
         await qi.addConstraint('users', ['first_name'], {
             type: 'check',
-            name: 'users_first_name_not_empty_check',
+            name: 'users_first_name_empty_check',
             where: { first_name: { [Sequelize.Op.ne]: '' } },
             transaction
         });
 
         await qi.addConstraint('users', ['last_name'], {
             type: 'check',
-            name: 'users_last_name_not_empty_check',
+            name: 'users_last_name_empty_check',
             where: { last_name: { [Sequelize.Op.ne]: '' } },
             transaction
         });

@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../../config/sequelize');
-const { ROLE_USER, ROLE_ADMIN } = require('../consts/roles');
+const { ROLE_USER, ROLE_ADMIN } = require('../constants/roles');
 
 const User = sequelize.define('User', {
     id: {
@@ -27,7 +27,7 @@ const User = sequelize.define('User', {
         allowNull: false
     },
     password: {
-        type: Sequelize.STRING(60).BINARY,
+        type: Sequelize.STRING(60),
         allowNull: false
     },
     isActive: {
