@@ -25,7 +25,7 @@ const createSessionOperation = async (userId) => {
         id,
         userId,
         blocksAt: new Date(blocksAtMs),
-        expiresAt: new Date(blocksAtMs)
+        expiresAt: new Date(expiresAtMs)
     };
 };
 
