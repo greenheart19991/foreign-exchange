@@ -2,9 +2,8 @@ const redis = require('../../../../config/redis');
 const config = require('../../../../config/config');
 const sessionIDService = require('../../../services/UIDSessionIDService');
 
-const createSessionOperation = async (user) => {
+const createSessionOperation = async (userId) => {
     const id = await sessionIDService.generate();
-    const userId = user.id;
 
     const nowMs = Date.now();
     const blocksAtMs = nowMs + config.session.refreshInterval;
@@ -13,7 +12,7 @@ const createSessionOperation = async (user) => {
     await new Promise((resolve, reject) => {
         redis
             .multi()
-            .hmset(id, 'userId', String(user.id), 'blocksAt', String(blocksAtMs))
+            .hmset(id, 'userId', String(userId), 'blocksAt', String(blocksAtMs))
             .pexpireat(id, expiresAtMs)
             .exec((err, results) => (
                 err

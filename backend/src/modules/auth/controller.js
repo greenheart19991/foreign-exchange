@@ -24,7 +24,7 @@ const login = async (req, res) => {
             .json({ message: 'Invalid email or password' });
     }
 
-    const session = await createSessionOperation(user);
+    const session = await createSessionOperation(user.id);
 
     const setCookie = cookie.serialize(COOKIE_SID_KEY, session.id, {
         ...COOKIE_SID_OPTIONS,
