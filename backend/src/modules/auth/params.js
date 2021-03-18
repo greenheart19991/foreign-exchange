@@ -5,7 +5,7 @@ const credentialsSchema = {
         .email()
         .required(),
     password: Joi.string()
-        .min(3)
+        .min(6)
         .max(31)
         .required()
 };
@@ -18,7 +18,18 @@ const logoutSchema = {
     body: Joi.object({})
 };
 
+const signupSchema = {
+    body: Joi.object({
+        ...credentialsSchema,
+        firstName: Joi.string()
+            .required(),
+        lastName: Joi.string()
+            .required()
+    })
+};
+
 module.exports = {
     loginSchema,
-    logoutSchema
+    logoutSchema,
+    signupSchema
 };
