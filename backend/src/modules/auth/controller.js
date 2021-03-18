@@ -3,6 +3,7 @@ const cookie = require('cookie');
 const config = require('../../../config/config');
 const loginOperation = require('./operations/login');
 const createSessionOperation = require('./operations/create_session');
+const deleteSessionOperation = require('./operations/delete_session');
 const { COOKIE_SID_KEY, COOKIE_SID_OPTIONS } = require('../../constants/cookie');
 const {
     AUTH_ERROR_USER_NOT_FOUND,
@@ -38,6 +39,23 @@ const login = async (req, res) => {
         .end();
 };
 
+const logout = async (req, res) => {
+    await deleteSessionOperation(req.session.id);
+
+    // clear sid cookie
+    const setCookie = cookie.serialize(COOKIE_SID_KEY, '', {
+        ...COOKIE_SID_OPTIONS,
+        secure: config.cookie.secure,
+        expires: new Date(0)
+    });
+
+    return res
+        .append('Set-Cookie', setCookie)
+        .status(httpStatus.NO_CONTENT)
+        .end();
+};
+
 module.exports = {
-    login
+    login,
+    logout
 };

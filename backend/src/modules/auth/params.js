@@ -14,6 +14,11 @@ const loginSchema = {
     body: Joi.object(credentialsSchema)
 };
 
+const logoutSchema = {
+    body: Joi.object({})
+};
+
 module.exports = {
-    loginSchema
+    loginSchema,
+    logoutSchema
 };
