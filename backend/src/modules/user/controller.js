@@ -5,6 +5,12 @@ const list = (req, res) => (
         .json({ message: httpStatus.getStatusText(httpStatus.OK) })
 );
 
+const get = (req, res) => (
+    res.status(httpStatus.OK)
+        .json({ message: httpStatus.getStatusText(httpStatus.OK) })
+);
+
 module.exports = {
-    list
+    list,
+    get
 };

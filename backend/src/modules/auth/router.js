@@ -15,8 +15,8 @@ router.route('/login')
 
 router.route('/logout')
     .post(
-        authenticate,
         validator.body(logoutSchema.body),
+        authenticate,
         controller.logout
     );
 
