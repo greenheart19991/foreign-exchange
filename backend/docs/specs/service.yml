@@ -1,11 +1,11 @@
 swagger: "2.0"
 info:
-  description: Official documentation of Foreign Exchange Service.
+  description: Example documentation (TODO).
   version: 1.0.0
   title: Foreign Exchange API
   contact:
     name: Ivan Kolesnik
-    email: i.kolesnik.work@gmail.com
+    email: greenheart19991@gmail.com
 
 host: "{this_host}"
 basePath: /api

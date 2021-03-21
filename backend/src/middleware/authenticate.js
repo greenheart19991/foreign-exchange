@@ -4,7 +4,7 @@ const config = require('../../config/config');
 const findSessionOperation = require('../modules/auth/operations/find_session');
 const deleteSessionOperation = require('../modules/auth/operations/delete_session');
 const createSessionOperation = require('../modules/auth/operations/create_session');
-const findUserOperation = require('../modules/user/operations/find_user');
+const findUserOperation = require('../modules/auth/operations/find_user');
 const { COOKIE_SID_KEY, COOKIE_SID_OPTIONS } = require('../constants/cookie');
 const { SID_BYTE_LEN } = require('../constants/session');
 

@@ -1,4 +1,4 @@
-const Joi = require('@hapi/joi');
+const Joi = require('../../../config/joi');
 
 const credentialsSchema = {
     email: Joi.string()

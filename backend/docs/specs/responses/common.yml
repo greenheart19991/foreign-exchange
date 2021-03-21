@@ -1,22 +1,22 @@
 responses:
-    400:
-        description: Invalid request
-        schema:
-            type: string
-            example: Bad Request
-    404:
-        description: Not found
-        schema:
-            type: object
-            properties:
-                message:
-                    type: string
-                    example: Not Found
-    500:
-        description: Internal server error
-        schema:
-            type: object
-            properties:
-                message:
-                    type: string
-                    example: Internal Server Error
+  400:
+    description: Invalid request
+    schema:
+      type: string
+      example: Bad Request
+  404:
+    description: Not found
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Not Found
+  500:
+    description: Internal server error
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Internal Server Error

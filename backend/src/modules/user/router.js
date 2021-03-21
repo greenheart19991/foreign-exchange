@@ -4,7 +4,7 @@ const authenticate = require('../../middleware/authenticate');
 const authorize = require('../../middleware/authorization/authorize');
 const { or, hasRole } = require('../../middleware/authorization/validators/interface');
 const { ROLE_ADMIN } = require('../../constants/roles');
-const { getSchema } = require('./params');
+const { listSchema, getSchema } = require('./params');
 const { isMe } = require('./access/interface');
 const controller = require('./controller');
 
@@ -13,6 +13,7 @@ const validator = createValidator();
 
 router.route('/')
     .get(
+        validator.query(listSchema.query),
         authenticate,
         authorize(
             hasRole([ROLE_ADMIN])
