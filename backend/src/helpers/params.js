@@ -1,4 +1,5 @@
 const Joi = require('../../config/joi');
+const { CRUD_READ_DEFAULT_MAX_LIMIT } = require('../constants/crud');
 
 const createFilterSchema = (fields) => {
     const schema = fields.reduce((acc, k) => {
@@ -38,6 +39,7 @@ const paginationSchema = {
     limit: Joi.number()
         .integer()
         .min(1)
+        .max(CRUD_READ_DEFAULT_MAX_LIMIT)
 };
 
 module.exports = {
