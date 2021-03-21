@@ -21,6 +21,12 @@ router.route('/')
         controller.list
     );
 
+router.route('/me')
+    .get(
+        authenticate,
+        controller.getMyself
+    );
+
 router.route('/:id')
     .get(
         validator.params(getSchema.params),

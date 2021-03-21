@@ -1,8 +1,8 @@
-const _ = require('lodash');
 const { User } = require('../../../models');
 
 const findUserOperation = async (id) => {
     const user = await User.findByPk(id, {
+        attributes: { exclude: ['password'] },
         raw: true
     });
 
@@ -10,7 +10,7 @@ const findUserOperation = async (id) => {
         return null;
     }
 
-    return _.omit(user, ['password']);
+    return user;
 };
 
 module.exports = findUserOperation;
