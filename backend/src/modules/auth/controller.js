@@ -16,15 +16,17 @@ const login = async (req, res) => {
     const { email, password } = req.body;
 
     const { result: user, error } = await loginOperation(email, password);
-    if (
-        error
-        && (
+
+    if (error) {
+        if (
             error.code === AUTH_ERROR_USER_NOT_FOUND
             || error.code === AUTH_ERROR_INVALID_PASSWORD
-        )
-    ) {
-        return res.status(httpStatus.UNAUTHORIZED)
-            .json({ message: 'Invalid email or password' });
+        ) {
+            return res.status(httpStatus.UNAUTHORIZED)
+                .json({ message: 'Invalid email or password' });
+        }
+
+        throw error;
     }
 
     const session = await createSessionOperation(user.id);
@@ -62,9 +64,13 @@ const signup = async (req, res) => {
 
     const { result: user, error } = await signupOperation({ firstName, lastName, email, password });
 
-    if (error && error.code === AUTH_ERROR_EMAIL_ALREADY_EXISTS) {
-        return res.status(httpStatus.CONFLICT)
-            .json({ message: 'User already exists' });
+    if (error) {
+        if (error.code === AUTH_ERROR_EMAIL_ALREADY_EXISTS) {
+            return res.status(httpStatus.CONFLICT)
+                .json({ message: 'User already exists' });
+        }
+
+        throw error;
     }
 
     const session = await createSessionOperation(user.id);

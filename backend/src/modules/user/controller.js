@@ -2,6 +2,8 @@ const httpStatus = require('http-status-codes');
 const { getReadOptions } = require('../../helpers/crud');
 const readUsersOperation = require('./operations/read_users');
 const getUserOperation = require('./operations/get_user');
+const createUserOperation = require('./operations/create_user');
+const { USER_ERROR_EMAIL_ALREADY_EXISTS } = require('./constants/error_codes');
 
 const list = async (req, res) => {
     const options = getReadOptions(req.query);
@@ -39,8 +41,41 @@ const getMyself = async (req, res) => {
         .json(user);
 };
 
+const create = async (req, res) => {
+    const {
+        firstName,
+        lastName,
+        email,
+        password,
+        role,
+        isActive
+    } = req.body;
+
+    const { result: user, error } = await createUserOperation({
+        firstName,
+        lastName,
+        email,
+        password,
+        role,
+        isActive
+    });
+
+    if (error) {
+        if (error.code === USER_ERROR_EMAIL_ALREADY_EXISTS) {
+            return res.status(httpStatus.CONFLICT)
+                .json({ message: 'User with such email already exists' });
+        }
+
+        throw error;
+    }
+
+    return res.status(httpStatus.CREATED)
+        .json(user);
+};
+
 module.exports = {
     list,
     get,
-    getMyself
+    getMyself,
+    create
 };

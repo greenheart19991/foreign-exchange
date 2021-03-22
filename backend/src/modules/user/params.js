@@ -1,4 +1,5 @@
 const Joi = require('@hapi/joi');
+const { ROLE_USER, ROLE_ADMIN } = require('../../constants/roles');
 const {
     createFilterSchema,
     createSortSchema,
@@ -34,7 +35,29 @@ const getSchema = {
     })
 };
 
+const createSchema = {
+    body: Joi.object({
+        firstName: Joi.string()
+            .required(),
+        lastName: Joi.string()
+            .required(),
+        email: Joi.string()
+            .email()
+            .required(),
+        password: Joi.string()
+            .min(6)
+            .max(31)
+            .required(),
+        role: Joi.string()
+            .valid(ROLE_USER, ROLE_ADMIN)
+            .required(),
+        isActive: Joi.boolean()
+            .required()
+    })
+};
+
 module.exports = {
     listSchema,
-    getSchema
+    getSchema,
+    createSchema
 };
