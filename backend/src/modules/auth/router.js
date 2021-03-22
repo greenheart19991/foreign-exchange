@@ -1,7 +1,7 @@
 const Router = require('express-promise-router');
 const { createValidator } = require('express-joi-validation');
 const authenticate = require('../../middleware/authenticate');
-const { loginSchema, logoutSchema, signupSchema } = require('./params');
+const { loginSchema, signupSchema } = require('./params');
 const controller = require('./controller');
 
 const router = Router();
@@ -15,7 +15,6 @@ router.route('/login')
 
 router.route('/logout')
     .post(
-        validator.body(logoutSchema.body),
         authenticate,
         controller.logout
     );

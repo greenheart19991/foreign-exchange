@@ -4,7 +4,7 @@ const authenticate = require('../../middleware/authenticate');
 const authorize = require('../../middleware/authorization/authorize');
 const { or, hasRole } = require('../../middleware/authorization/validators/interface');
 const { ROLE_ADMIN } = require('../../constants/roles');
-const { listSchema, getSchema, createSchema } = require('./params');
+const { listSchema, getSchema, createSchema, patchSchema } = require('./params');
 const { isMe } = require('./access/interface');
 const controller = require('./controller');
 
@@ -48,6 +48,20 @@ router.route('/:id')
             )
         ),
         controller.get
+    );
+
+router.route('/:id')
+    .patch(
+        validator.params(patchSchema.params),
+        validator.body(patchSchema.body),
+        authenticate,
+        authorize(
+            or(
+                hasRole([ROLE_ADMIN]),
+                isMe
+            )
+        ),
+        controller.patch
     );
 
 module.exports = router;

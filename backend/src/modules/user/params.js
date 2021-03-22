@@ -18,6 +18,30 @@ const filterAllowedFields = [
 const filterSchema = createFilterSchema(filterAllowedFields);
 const sortSchema = createSortSchema(filterAllowedFields);
 
+const idSchema = Joi.number()
+    .integer()
+    .min(0)
+    .required();
+
+const userSchema = Joi.object({
+    firstName: Joi.string()
+        .required(),
+    lastName: Joi.string()
+        .required(),
+    email: Joi.string()
+        .email()
+        .required(),
+    password: Joi.string()
+        .min(6)
+        .max(31)
+        .required(),
+    role: Joi.string()
+        .valid(ROLE_USER, ROLE_ADMIN)
+        .required(),
+    isActive: Joi.boolean()
+        .required()
+});
+
 const listSchema = {
     query: Joi.object({
         ...filterSchema,
@@ -28,36 +52,29 @@ const listSchema = {
 
 const getSchema = {
     params: Joi.object({
-        id: Joi.number()
-            .integer()
-            .min(0)
-            .required()
+        id: idSchema
     })
 };
 
 const createSchema = {
-    body: Joi.object({
-        firstName: Joi.string()
-            .required(),
-        lastName: Joi.string()
-            .required(),
-        email: Joi.string()
-            .email()
-            .required(),
-        password: Joi.string()
-            .min(6)
-            .max(31)
-            .required(),
-        role: Joi.string()
-            .valid(ROLE_USER, ROLE_ADMIN)
-            .required(),
-        isActive: Joi.boolean()
-            .required()
-    })
+    body: userSchema
+};
+
+const patchSchema = {
+    params: Joi.object({
+        id: idSchema
+    }),
+    body: userSchema
+        .fork(
+            ['firstName', 'lastName', 'email', 'password', 'role', 'isActive'],
+            (schema) => schema.optional()
+        )
+        .min(1)
 };
 
 module.exports = {
     listSchema,
     getSchema,
-    createSchema
+    createSchema,
+    patchSchema
 };

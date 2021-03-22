@@ -1,6 +1,6 @@
 const Joi = require('../../../config/joi');
 
-const credentialsSchema = {
+const credentialsSchema = Joi.object({
     email: Joi.string()
         .email()
         .required(),
@@ -8,19 +8,14 @@ const credentialsSchema = {
         .min(6)
         .max(31)
         .required()
-};
+});
 
 const loginSchema = {
-    body: Joi.object(credentialsSchema)
-};
-
-const logoutSchema = {
-    body: Joi.object({})
+    body: credentialsSchema
 };
 
 const signupSchema = {
-    body: Joi.object({
-        ...credentialsSchema,
+    body: credentialsSchema.append({
         firstName: Joi.string()
             .required(),
         lastName: Joi.string()
@@ -30,6 +25,5 @@ const signupSchema = {
 
 module.exports = {
     loginSchema,
-    logoutSchema,
     signupSchema
 };
