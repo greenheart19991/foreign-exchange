@@ -27,13 +27,13 @@ const authenticate = async (req, res, next) => {
             .json({ message: 'Invalid session id' });
     }
 
+    const now = new Date();
     let session = await findSessionOperation(sid);
-    if (!session) {
+
+    if (!session || session.expiresAt < now) {
         return res.status(httpStatus.UNAUTHORIZED)
             .json({ message: 'Session not found' });
     }
-
-    const now = new Date();
 
     if (session.blocksAt < now) {
         await deleteSessionOperation(session.id);

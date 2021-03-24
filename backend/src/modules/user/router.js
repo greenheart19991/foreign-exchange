@@ -2,9 +2,9 @@ const Router = require('express-promise-router');
 const { createValidator } = require('express-joi-validation');
 const authenticate = require('../../middleware/authenticate');
 const authorize = require('../../middleware/authorization/authorize');
-const { or, hasRole } = require('../../middleware/authorization/validators/interface');
-const { ROLE_ADMIN } = require('../../constants/roles');
-const { listSchema, getSchema, createSchema, patchSchema } = require('./params');
+const { or, and, not, hasRole } = require('../../middleware/authorization/validators/interface');
+const { ROLE_USER, ROLE_ADMIN } = require('../../constants/roles');
+const { listSchema, getSchema, createSchema, patchSchema, removeSchema } = require('./params');
 const { isMe } = require('./access/interface');
 const controller = require('./controller');
 
@@ -62,6 +62,25 @@ router.route('/:id')
             )
         ),
         controller.patch
+    );
+
+router.route('/:id')
+    .delete(
+        validator.params(removeSchema.params),
+        authenticate,
+        authorize(
+            or(
+                and(
+                    hasRole([ROLE_ADMIN]),
+                    not(isMe)
+                ),
+                and(
+                    hasRole([ROLE_USER]),
+                    isMe
+                )
+            )
+        ),
+        controller.remove
     );
 
 module.exports = router;

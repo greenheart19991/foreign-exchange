@@ -1,4 +1,4 @@
-const { or, and, hasRole } = require('./validators');
+const { or, and, not, hasRole } = require('./validators');
 
 const orInterfaceFactory = (...validatorsInterfaces) => async (req) => {
     const results = await Promise.all(
@@ -16,6 +16,11 @@ const andInterfaceFactory = (...validatorsInterfaces) => async (req) => {
     return and(results);
 };
 
+const notInterfaceFactory = (validatorInterface) => async (req) => {
+    const result = await validatorInterface(req);
+    return not(result);
+};
+
 const hasRoleInterfaceFactory = (roles) => (req) => {
     const { user } = req;
     return hasRole(user, roles);
@@ -24,5 +29,6 @@ const hasRoleInterfaceFactory = (roles) => (req) => {
 module.exports = {
     or: orInterfaceFactory,
     and: andInterfaceFactory,
+    not: notInterfaceFactory,
     hasRole: hasRoleInterfaceFactory
 };

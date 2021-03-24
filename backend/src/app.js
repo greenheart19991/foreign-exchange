@@ -6,6 +6,7 @@ const config = require('../config/config');
 const logger = require('../config/logger');
 const APIError = require('./errors/api_error');
 const router = require('./router');
+const cleanSessionsJobFactory = require('./jobs/clean_sessions_job');
 
 const app = express();
 
@@ -55,6 +56,51 @@ app.use((err, req, res, next) => {
     res.status(status).send({ message });
 });
 
-app.listen(config.port, () => {
+const cleanSessionsJob = cleanSessionsJobFactory(
+    config.jobs.cleanSessions.pattern,
+    config.jobs.cleanSessions.bunchSize,
+    config.jobs.cleanSessions.interval
+);
+
+cleanSessionsJob.setup();
+
+const exitHandler = (eventType, args) => {
+    let exitCode;
+    switch (eventType) {
+        case 'exit': {
+            // eslint-disable-next-line prefer-destructuring
+            exitCode = args[0];
+            break;
+        }
+        case 'SIGINT':
+        case 'SIGUSR1':
+        case 'SIGUSR2':
+        case 'SIGTERM': {
+            // eslint-disable-next-line prefer-destructuring
+            exitCode = args[1];
+            break;
+        }
+        case 'uncaughtException': {
+            exitCode = 1;
+            break;
+        }
+        default: {
+            exitCode = 0;
+        }
+    }
+
+    // cleanup jobs
+    if (eventType === 'exit') {
+        cleanSessionsJob.destroy();
+    }
+
+    process.exit(exitCode);
+};
+
+['exit', 'SIGINT', 'SIGUSR1', 'SIGUSR2', 'uncaughtException', 'SIGTERM'].forEach((eventType) => {
+    process.on(eventType, (...args) => exitHandler(eventType, args));
+});
+
+app.listen(config.port, async () => {
     logger.info(`Server started on port ${config.port} (${config.env})`);
 });

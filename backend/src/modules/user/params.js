@@ -72,9 +72,16 @@ const patchSchema = {
         .min(1)
 };
 
+const removeSchema = {
+    params: Joi.object({
+        id: idSchema
+    })
+};
+
 module.exports = {
     listSchema,
     getSchema,
     createSchema,
-    patchSchema
+    patchSchema,
+    removeSchema
 };

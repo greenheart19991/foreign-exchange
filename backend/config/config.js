@@ -83,7 +83,16 @@ const schema = Joi.object({
             .required(),
         Joi.string()
             .required()
-    ]
+    ],
+
+    CLEAN_JOB_PATTERN: Joi.string()
+        .required(),
+    CLEAN_JOB_BUNCH_SIZE: Joi.number()
+        .min(1)
+        .required(),
+    CLEAN_JOB_INTERVAL: Joi.string()
+        .custom(msValueValidateFn)
+        .required()
 }).unknown();
 
 const { error, value: envVars } = schema.validate(process.env);
@@ -123,5 +132,13 @@ module.exports = {
     cookie: {
         secure: envVars.SECURE_COOKIE
     },
-    trustProxy: envVars.TRUST_PROXY
+    trustProxy: envVars.TRUST_PROXY,
+
+    jobs: {
+        cleanSessions: {
+            pattern: envVars.CLEAN_JOB_PATTERN,
+            bunchSize: envVars.CLEAN_JOB_BUNCH_SIZE,
+            interval: ms(envVars.CLEAN_JOB_INTERVAL)
+        }
+    }
 };
