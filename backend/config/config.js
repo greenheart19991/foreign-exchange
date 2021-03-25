@@ -24,11 +24,14 @@ const schema = Joi.object({
         .valid('development', 'production')
         .default('development'),
     PORT: Joi.number()
+        .port()
         .default(3000),
 
     PG_PORT: Joi.number()
+        .port()
         .default(5432),
     PG_HOST: Joi.string()
+        .hostname()
         .default('localhost'),
 
     PG_DB: Joi.string()
@@ -39,8 +42,10 @@ const schema = Joi.object({
         .required(),
 
     REDIS_PORT: Joi.number()
+        .port()
         .default(6379),
     REDIS_HOST: Joi.string()
+        .hostname()
         .default('localhost'),
     REDIS_PASSWORD: Joi.string()
         .required(),
@@ -71,6 +76,8 @@ const schema = Joi.object({
         .required(),
 
     BCRYPT_SALT_ROUNDS: Joi.number()
+        .integer()
+        .positive()
         .required(),
 
     SECURE_COOKIE: Joi.bool()
@@ -78,7 +85,8 @@ const schema = Joi.object({
 
     TRUST_PROXY: [
         Joi.bool()
-            .required(),
+            .required()
+            .default(false),
         Joi.number()
             .required(),
         Joi.string()
@@ -88,7 +96,8 @@ const schema = Joi.object({
     CLEAN_JOB_PATTERN: Joi.string()
         .required(),
     CLEAN_JOB_BUNCH_SIZE: Joi.number()
-        .min(1)
+        .integer()
+        .positive()
         .required(),
     CLEAN_JOB_INTERVAL: Joi.string()
         .custom(msValueValidateFn)

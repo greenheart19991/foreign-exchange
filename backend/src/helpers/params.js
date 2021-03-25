@@ -38,7 +38,7 @@ const paginationSchema = {
         .min(0),
     limit: Joi.number()
         .integer()
-        .min(1)
+        .positive()
         .max(CRUD_READ_DEFAULT_MAX_LIMIT)
 };
 

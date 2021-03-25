@@ -20,7 +20,6 @@ const sortSchema = createSortSchema(filterAllowedFields);
 
 const idSchema = Joi.number()
     .integer()
-    .min(0)
     .required();
 
 const userSchema = Joi.object({

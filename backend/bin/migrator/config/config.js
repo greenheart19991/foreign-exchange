@@ -16,8 +16,10 @@ const schema = Joi.object({
         .default('development'),
 
     PG_PORT: Joi.number()
+        .port()
         .default(5432),
     PG_HOST: Joi.string()
+        .hostname()
         .default('localhost'),
 
     PG_DB: Joi.string()
