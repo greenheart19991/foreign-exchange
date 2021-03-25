@@ -1,4 +1,5 @@
 const Joi = require('@hapi/joi');
+const { PERIOD_TYPE_MONTH, PERIOD_TYPE_YEAR } = require('../../constants/period_types');
 const {
     createFilterSchema,
     createSortSchema,
@@ -39,7 +40,34 @@ const getSchema = {
     })
 };
 
+const createSchema = {
+    body: Joi.object({
+        name: Joi.string()
+            .required(),
+        periodType: Joi.string()
+            .valid(PERIOD_TYPE_MONTH, PERIOD_TYPE_YEAR)
+            .required(),
+        periods: Joi.number()
+            .integer()
+            .positive()
+            .required(),
+        price: Joi.number()
+            .min(0)
+            .required(),
+        requests: Joi.number()
+            .integer()
+            .positive()
+            .required(),
+        startTimestamp: Joi.date()
+            .timestamp(),
+        endTimestamp: Joi.date()
+            .timestamp()
+            .allow(null)
+    })
+};
+
 module.exports = {
     listSchema,
-    getSchema
+    getSchema,
+    createSchema
 };

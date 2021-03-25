@@ -65,18 +65,6 @@ const up = (qi, Sequelize) => qi.sequelize.transaction(
             where: { requests: { [Sequelize.Op.gt]: 0 } },
             transaction
         });
-
-        await qi.addConstraint('subscriptions', ['start_timestamp', 'end_timestamp'], {
-            type: 'check',
-            name: 'subscriptions_timestamps_check',
-            where: {
-                [Sequelize.Op.or]: [
-                    { end_timestamp: { [Sequelize.Op.is]: null } },
-                    { end_timestamp: { [Sequelize.Op.gt]: Sequelize.col('start_timestamp') } }
-                ]
-            },
-            transaction
-        });
     }
 );
 
