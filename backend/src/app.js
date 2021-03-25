@@ -101,6 +101,6 @@ const exitHandler = (eventType, args) => {
     process.on(eventType, (...args) => exitHandler(eventType, args));
 });
 
-app.listen(config.port, async () => {
+app.listen(config.port, () => {
     logger.info(`Server started on port ${config.port} (${config.env})`);
 });
