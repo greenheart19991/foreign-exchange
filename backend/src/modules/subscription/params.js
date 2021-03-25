@@ -19,6 +19,11 @@ const filterAllowedFields = [
 const filterSchema = createFilterSchema(filterAllowedFields);
 const sortSchema = createSortSchema(filterAllowedFields);
 
+const idSchema = Joi.number()
+    .integer()
+    .min(0)
+    .required();
+
 const listSchema = {
     query: Joi.object({
         ...filterSchema,
@@ -29,6 +34,13 @@ const listSchema = {
     })
 };
 
+const getSchema = {
+    params: Joi.object({
+        id: idSchema
+    })
+};
+
 module.exports = {
-    listSchema
+    listSchema,
+    getSchema
 };

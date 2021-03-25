@@ -11,8 +11,8 @@ const { COOKIE_SID_KEY, COOKIE_SID_OPTIONS } = require('../../constants/cookie')
 const {
     USER_ERROR_USER_NOT_FOUND,
     USER_ERROR_EMAIL_ALREADY_EXISTS,
-    USER_ERROR_SET_ROLE_FORBIDDEN,
-    USER_ERROR_SET_IS_ACTIVE_FORBIDDEN
+    USER_ERROR_FORBIDDEN_SET_ROLE,
+    USER_ERROR_FORBIDDEN_SET_IS_ACTIVE
 } = require('./constants/error_codes');
 
 const list = async (req, res) => {
@@ -91,8 +91,8 @@ const patch = async (req, res) => {
 
     if (error) {
         if (
-            error.code === USER_ERROR_SET_ROLE_FORBIDDEN
-            || error.code === USER_ERROR_SET_IS_ACTIVE_FORBIDDEN
+            error.code === USER_ERROR_FORBIDDEN_SET_ROLE
+            || error.code === USER_ERROR_FORBIDDEN_SET_IS_ACTIVE
         ) {
             return res.status(httpStatus.FORBIDDEN)
                 .json({ message: error.message });

@@ -4,7 +4,7 @@ const authenticate = require('../../middleware/authenticate');
 const authorize = require('../../middleware/authorization/authorize');
 const { or, hasRole } = require('../../middleware/authorization/validators/interface');
 const { ROLE_ADMIN } = require('../../constants/roles');
-const { listSchema } = require('./params');
+const { listSchema, getSchema } = require('./params');
 const { isPublishedOnly } = require('./access/interface');
 const controller = require('./controller');
 
@@ -22,6 +22,13 @@ router.route('/')
             )
         ),
         controller.list
+    );
+
+router.route('/:id')
+    .get(
+        validator.params(getSchema.params),
+        authenticate,
+        controller.get
     );
 
 module.exports = router;

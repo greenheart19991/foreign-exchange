@@ -1,6 +1,8 @@
 const httpStatus = require('http-status-codes');
 const { getReadOptions } = require('../../helpers/crud');
 const readSubscriptionsOperation = require('./operations/read_subscriptions');
+const getSubscriptionOperation = require('./operations/get_subscription');
+const { SUBS_ERROR_FORBIDDEN_SUB_UNPUBLISHED } = require('./constants/error_codes');
 
 const list = async (req, res) => {
     const { unpublished } = req.query;
@@ -12,6 +14,30 @@ const list = async (req, res) => {
         .json(results);
 };
 
+const get = async (req, res) => {
+    const { id } = req.params;
+
+    const { result, error } = await getSubscriptionOperation(id, req.user);
+
+    if (error) {
+        if (error.code === SUBS_ERROR_FORBIDDEN_SUB_UNPUBLISHED) {
+            return res.status(httpStatus.FORBIDDEN)
+                .json({ message: httpStatus.getStatusText(httpStatus.FORBIDDEN) });
+        }
+
+        throw error;
+    }
+
+    if (!result) {
+        return res.status(httpStatus.NOT_FOUND)
+            .json({ message: 'Subscription not found' });
+    }
+
+    return res.status(httpStatus.OK)
+        .json(result);
+};
+
 module.exports = {
-    list
+    list,
+    get
 };
