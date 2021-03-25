@@ -66,8 +66,15 @@ const createSchema = {
     })
 };
 
+const archiveSchema = {
+    params: Joi.object({
+        id: idSchema
+    })
+};
+
 module.exports = {
     listSchema,
     getSchema,
-    createSchema
+    createSchema,
+    archiveSchema
 };

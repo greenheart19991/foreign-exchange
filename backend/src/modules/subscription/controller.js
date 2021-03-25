@@ -3,11 +3,14 @@ const { getReadOptions } = require('../../helpers/crud');
 const readSubscriptionsOperation = require('./operations/read_subscriptions');
 const getSubscriptionOperation = require('./operations/get_subscription');
 const createSubscriptionOperation = require('./operations/create_subscription');
+const archiveSubscriptionOperation = require('./operations/archive_subscription');
 const {
     SUBS_ERROR_START_TS_LT_NOW,
     SUBS_ERROR_END_TS_LTE_START_TS,
     SUBS_ERROR_NAME_ALREADY_EXISTS,
-    SUBS_ERROR_FORBIDDEN_SUB_UNPUBLISHED
+    SUBS_ERROR_FORBIDDEN_SUB_UNPUBLISHED,
+    SUBS_ERROR_SUB_NOT_FOUND,
+    SUBS_ERROR_SUB_ALREADY_ARCHIVED
 } = require('./constants/error_codes');
 
 const list = async (req, res) => {
@@ -22,7 +25,6 @@ const list = async (req, res) => {
 
 const get = async (req, res) => {
     const { id } = req.params;
-
     const { result, error } = await getSubscriptionOperation(id, req.user);
 
     if (error) {
@@ -85,8 +87,32 @@ const create = async (req, res) => {
         .json(result);
 };
 
+const archive = async (req, res) => {
+    const { id } = req.params;
+    const { error } = await archiveSubscriptionOperation(id);
+
+    if (error) {
+        if (error.code === SUBS_ERROR_SUB_NOT_FOUND) {
+            return res.status(httpStatus.NOT_FOUND)
+                .json({ message: 'Subscription not found' });
+        }
+
+        if (error.code === SUBS_ERROR_SUB_ALREADY_ARCHIVED) {
+            return res.status(httpStatus.CONFLICT)
+                .json({ message: 'Subscription already archived' });
+        }
+
+        throw error;
+    }
+
+    return res
+        .status(httpStatus.NO_CONTENT)
+        .end();
+};
+
 module.exports = {
     list,
     get,
-    create
+    create,
+    archive
 };
