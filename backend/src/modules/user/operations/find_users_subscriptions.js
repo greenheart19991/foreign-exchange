@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
-const { Order, Grant, Subscription } = require('../../../models');
+const sequelize = require('../../../../config/sequelize');
+const { Subscription } = require('../../../models');
 const { getSubscriptionEndTimestamp } = require('../../../helpers/period');
 
 /**
@@ -17,34 +18,58 @@ const { getSubscriptionEndTimestamp } = require('../../../helpers/period');
  */
 
 const findUsersSubscriptionsOperation = async (userIds, timestamp) => {
-    const lastOrdersByUser = await Order.findAll({
-        attributes: [
-            'id',
-            'userId',
-            'subscriptionId',
-            [Sequelize.fn('max', Sequelize.col('timestamp')), 'timestamp']
-        ],
-        where: {
-            userId: {
-                [Sequelize.Op.in]: userIds
-            }
-        },
-        group: ['userId', 'id']
+    const lastOrdersByUser = await sequelize.query(`
+        WITH ranked_orders AS (
+            SELECT id,
+                   user_id,
+                   subscription_id,
+                   timestamp,
+                   row_number() OVER (
+                       PARTITION BY user_id
+                       ORDER BY
+                           timestamp DESC,
+                           id DESC
+                       ) AS rn
+            FROM orders
+            WHERE user_id IN (:userIds)
+        )
+        SELECT id,
+               user_id         AS "userId",
+               subscription_id AS "subscriptionId",
+               timestamp
+        FROM ranked_orders
+        WHERE rn = 1
+    `, {
+        type: Sequelize.QueryTypes.SELECT,
+        replacements: { userIds }
     });
 
-    const lastGrantsByUser = await Grant.findAll({
-        attributes: [
-            'id',
-            'recipientId',
-            'subscriptionId',
-            [Sequelize.fn('max', Sequelize.col('timestamp')), 'timestamp']
-        ],
-        where: {
-            recipientId: {
-                [Sequelize.Op.in]: userIds
-            }
-        },
-        group: ['recipientId', 'id']
+    const lastGrantsByUser = await sequelize.query(`
+        WITH ranked_grants AS (
+            SELECT id,
+                   recipient_id,
+                   subscription_id,
+                   timestamp,
+                   end_timestamp,
+                   row_number() OVER (
+                       PARTITION BY recipient_id
+                       ORDER BY
+                           timestamp DESC,
+                           id DESC
+                       ) AS rn
+            FROM grants
+            WHERE recipient_id IN (:recipientIds)
+        )
+        SELECT id,
+               recipient_id    AS "recipientId",
+               subscription_id AS "subscriptionId",
+               timestamp,
+               end_timestamp   AS "endTimestamp"
+        FROM ranked_grants
+        WHERE rn = 1
+    `, {
+        type: Sequelize.QueryTypes.SELECT,
+        replacements: { recipientIds: userIds }
     });
 
     const usersLastSubscriptions = userIds.reduce((acc, userId) => {
