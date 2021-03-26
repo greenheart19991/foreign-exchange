@@ -47,10 +47,10 @@ const fkConstraints = {
 User.hasMany(Order, { foreignKey: 'userId', ...fkConstraints.Order.userId });
 Order.belongsTo(User, { foreignKey: 'userId' });
 
-User.hasMany(Grant, { foreignKey: 'userId', ...fkConstraints.Grant.userId });
-User.hasMany(Grant, { foreignKey: 'grantedBy', ...fkConstraints.Grant.grantedBy });
-Grant.belongsTo(User, { foreignKey: 'userId' });
-Grant.belongsTo(User, { foreignKey: 'grantedBy' });
+User.hasMany(Grant, { foreignKey: 'userId', as: 'ReceivedGrants', ...fkConstraints.Grant.userId });
+User.hasMany(Grant, { foreignKey: 'grantedBy', as: 'CommittedGrants', ...fkConstraints.Grant.grantedBy });
+Grant.belongsTo(User, { foreignKey: 'userId', as: 'Recipient' });
+Grant.belongsTo(User, { foreignKey: 'grantedBy', as: 'Committer' });
 
 Subscription.hasMany(Order, { foreignKey: 'subscriptionId', ...fkConstraints.Order.subscriptionId });
 Order.belongsTo(Subscription);
