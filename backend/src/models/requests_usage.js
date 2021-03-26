@@ -21,8 +21,7 @@ const RequestsUsage = sequelize.define('RequestsUsage', {
     }
 }, {
     timestamps: false,
-    underscored: true,
-    freezeTableName: true
+    underscored: true
 });
 
 module.exports = RequestsUsage;

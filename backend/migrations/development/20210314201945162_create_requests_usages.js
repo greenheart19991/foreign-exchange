@@ -1,6 +1,6 @@
 const up = (qi, Sequelize) => qi.sequelize.transaction(
     async (transaction) => {
-        await qi.createTable('requests_usage', {
+        await qi.createTable('requests_usages', {
             id: {
                 type: Sequelize.INTEGER,
                 autoIncrement: true,
@@ -26,16 +26,16 @@ const up = (qi, Sequelize) => qi.sequelize.transaction(
             }
         }, { transaction });
 
-        await qi.addConstraint('requests_usage', ['requests_used'], {
+        await qi.addConstraint('requests_usages', ['requests_used'], {
             type: 'check',
-            name: 'requests_usage_requests_used_check',
+            name: 'requests_usages_requests_used_check',
             where: { requests_used: { [Sequelize.Op.gte]: 0 } },
             transaction
         });
     }
 );
 
-const down = (qi, Sequelize) => qi.dropTable('requests_usage');
+const down = (qi, Sequelize) => qi.dropTable('requests_usages');
 
 module.exports = {
     up,

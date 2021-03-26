@@ -2,7 +2,7 @@ const subscriptionVOs = require('./data/20210315095804673/subscriptions.json');
 const userVOs = require('./data/20210315095804673/users.js');
 const orderVOs = require('./data/20210315095804673/orders.json');
 const grantVOs = require('./data/20210315095804673/grants.json');
-const requestsUsageVOs = require('./data/20210315095804673/requests_usage.json');
+const requestsUsageVOs = require('./data/20210315095804673/requests_usages.json');
 
 const up = (qi, Sequelize) => qi.sequelize.transaction(
     async (transaction) => {
@@ -51,7 +51,7 @@ const up = (qi, Sequelize) => qi.sequelize.transaction(
             ...rest
         }));
 
-        await qi.bulkInsert('requests_usage', requestsUsageVOsPrepared, { transaction });
+        await qi.bulkInsert('requests_usages', requestsUsageVOsPrepared, { transaction });
     }
 );
 
@@ -61,7 +61,7 @@ const down = (qi, Sequelize) => qi.sequelize.transaction(
         await qi.bulkDelete('orders', {}, { transaction });
         await qi.bulkDelete('subscriptions', {}, { transaction });
 
-        await qi.bulkDelete('requests_usage', {}, { transaction });
+        await qi.bulkDelete('requests_usages', {}, { transaction });
         await qi.bulkDelete('keys', {}, { transaction });
         await qi.bulkDelete('users', {}, { transaction });
     }
