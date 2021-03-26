@@ -1,4 +1,4 @@
-const { isMyOrders } = require('./validators');
+const { isMyOrders, isForMe } = require('./validators');
 
 const isMyOrdersInterface = (req) => {
     const { user } = req;
@@ -7,6 +7,14 @@ const isMyOrdersInterface = (req) => {
     return isMyOrders(user, where);
 };
 
+const isForMeInterface = (req) => {
+    const { user } = req;
+    const { userId } = req.body;
+
+    return isForMe(user, userId);
+};
+
 module.exports = {
-    isMyOrders: isMyOrdersInterface
+    isMyOrders: isMyOrdersInterface,
+    isForMe: isForMeInterface
 };

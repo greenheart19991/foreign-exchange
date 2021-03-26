@@ -14,13 +14,15 @@ const getSubscriptionOperation = async (id, sessionUser) => {
         };
     }
 
-    const isNotPublishedYet = subscription.startTimestamp > now;
-    const wasNotPublished = subscription.endTimestamp !== null
-        && subscription.endTimestamp <= subscription.startTimestamp;
+    const isNotPublished = subscription.startTimestamp > now
+        || (
+            subscription.endTimestamp !== null
+            && subscription.endTimestamp <= subscription.startTimestamp
+        );
 
     if (
         sessionUser.role === ROLE_USER
-        && (isNotPublishedYet || wasNotPublished)
+        && isNotPublished
     ) {
         const error = new OperationError(
             SUBS_ERROR_FORBIDDEN_SUB_UNPUBLISHED,
