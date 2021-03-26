@@ -11,8 +11,8 @@ const { getSubscriptionEndTimestamp } = require('../../../helpers/period');
 /**
  * Finds subscriptions that users had at specific point in time
  *
- * @param userIds
- * @param timestamp
+ * @param {number[]} userIds
+ * @param {Date} timestamp
  * @returns {Promise<UserIdSubscriptionPair[]>}
  */
 
@@ -35,21 +35,21 @@ const findUsersSubscriptionsOperation = async (userIds, timestamp) => {
     const lastGrantsByUser = await Grant.findAll({
         attributes: [
             'id',
-            'userId',
+            'recipientId',
             'subscriptionId',
             [Sequelize.fn('max', Sequelize.col('timestamp')), 'timestamp']
         ],
         where: {
-            userId: {
+            recipientId: {
                 [Sequelize.Op.in]: userIds
             }
         },
-        group: ['userId', 'id']
+        group: ['recipientId', 'id']
     });
 
     const usersLastSubscriptions = userIds.reduce((acc, userId) => {
         const lastOrder = lastOrdersByUser.find((o) => o.userId === userId);
-        const lastGrant = lastGrantsByUser.find((g) => g.userId === userId);
+        const lastGrant = lastGrantsByUser.find((g) => g.recipientId === userId);
 
         let last = null;
 

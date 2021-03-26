@@ -7,7 +7,11 @@ const Grant = sequelize.define('Grant', {
         autoIncrement: true,
         primaryKey: true
     },
-    userId: {
+    recipientId: {
+        type: Sequelize.INTEGER,
+        allowNull: true
+    },
+    committerId: {
         type: Sequelize.INTEGER,
         allowNull: true
     },
@@ -21,10 +25,6 @@ const Grant = sequelize.define('Grant', {
     },
     endTimestamp: {
         type: Sequelize.DATE,
-        allowNull: true
-    },
-    grantedBy: {
-        type: Sequelize.INTEGER,
         allowNull: true
     }
 }, {

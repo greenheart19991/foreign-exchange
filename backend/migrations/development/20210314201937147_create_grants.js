@@ -6,7 +6,17 @@ const up = (qi, Sequelize) => qi.sequelize.transaction(
                 autoIncrement: true,
                 primaryKey: true
             },
-            user_id: {
+            recipient_id: {
+                type: Sequelize.INTEGER,
+                allowNull: true,
+                references: {
+                    model: 'users',
+                    key: 'id'
+                },
+                onUpdate: 'cascade',
+                onDelete: 'set null'
+            },
+            committer_id: {
                 type: Sequelize.INTEGER,
                 allowNull: true,
                 references: {
@@ -33,16 +43,6 @@ const up = (qi, Sequelize) => qi.sequelize.transaction(
             end_timestamp: {
                 type: Sequelize.DATE,
                 allowNull: true
-            },
-            granted_by: {
-                type: Sequelize.INTEGER,
-                allowNull: true,
-                references: {
-                    model: 'users',
-                    key: 'id'
-                },
-                onUpdate: 'cascade',
-                onDelete: 'set null'
             }
         }, { transaction });
 

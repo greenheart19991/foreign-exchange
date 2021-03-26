@@ -1,9 +1,9 @@
 [
     {
-        "user": "bret.cummings@gmail.com",
+        "recipient": "bret.cummings@gmail.com",
+        "committer": "edyth.crooks@gmail.com",
         "subscription": "Sub Year Medium",
         "timestamp": "2020-12-12T16:48:00.000Z",
-        "end_timestamp": null,
-        "granted_by": "edyth.crooks@gmail.com"
+        "end_timestamp": null
     }
 ]

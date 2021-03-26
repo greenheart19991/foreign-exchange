@@ -37,10 +37,10 @@ const up = (qi, Sequelize) => qi.sequelize.transaction(
 
         await qi.bulkInsert('orders', orderVOsPrepared, { transaction });
 
-        const grantVOsPrepared = grantVOs.map(({ user, subscription, granted_by, ...rest }) => ({
-            user_id: usersByEmail[user].id,
+        const grantVOsPrepared = grantVOs.map(({ recipient, committer, subscription, ...rest }) => ({
+            recipient_id: usersByEmail[recipient].id,
+            committer_id: usersByEmail[committer].id,
             subscription_id: subscriptionsByName[subscription].id,
-            granted_by: usersByEmail[granted_by].id,
             ...rest
         }));
 

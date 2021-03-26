@@ -22,7 +22,7 @@ const createSubscriptionOperation = async (data) => {
     if (startTimestampMs < nowMs) {
         const error = new OperationError(
             SUBS_ERROR_START_TS_LT_NOW,
-            'startTimestamp cannot be less than now'
+            'Start timestamp cannot be less than now'
         );
 
         return {
@@ -34,7 +34,7 @@ const createSubscriptionOperation = async (data) => {
     if (endTimestampMs !== null && endTimestampMs <= startTimestampMs) {
         const error = new OperationError(
             SUBS_ERROR_END_TS_LTE_START_TS,
-            'endTimestamp must be greater than startTimestamp'
+            'End timestamp must be greater than start timestamp'
         );
 
         return {
