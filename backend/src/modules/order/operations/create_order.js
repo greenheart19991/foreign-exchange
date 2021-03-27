@@ -8,7 +8,7 @@ const {
     ORDER_ERROR_SUB_UNPUBLISHED
 } = require('../constants/error_codes');
 
-const createOrderOperation = async ({ userId, subscriptionId }) => {
+const createOrderOperation = async ({ subscriptionId }, sessionUser) => {
     const now = new Date();
     const subscription = await Subscription.findByPk(subscriptionId);
 
@@ -52,8 +52,8 @@ const createOrderOperation = async ({ userId, subscriptionId }) => {
     }
 
     const order = await Order.create({
-        userId,
         subscriptionId,
+        userId: sessionUser.id,
         timestamp: now
     });
 

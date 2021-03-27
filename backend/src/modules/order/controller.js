@@ -17,8 +17,8 @@ const list = async (req, res) => {
 };
 
 const create = async (req, res) => {
-    const { userId, subscriptionId } = req.body;
-    const { result, error } = await createOrderOperation({ userId, subscriptionId });
+    const { subscriptionId } = req.body;
+    const { result, error } = await createOrderOperation({ subscriptionId }, req.user);
 
     if (error) {
         if (error.code === ORDER_ERROR_SUB_NOT_FOUND) {

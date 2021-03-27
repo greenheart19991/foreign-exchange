@@ -32,9 +32,6 @@ const listSchema = {
 
 const createSchema = {
     body: Joi.object({
-        userId: Joi.number()
-            .integer()
-            .required(),
         subscriptionId: Joi.number()
             .integer()
             .required()
