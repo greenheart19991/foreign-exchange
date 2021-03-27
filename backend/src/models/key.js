@@ -7,7 +7,7 @@ const Key = sequelize.define('Key', {
         primaryKey: true
     },
     key: {
-        type: Sequelize.STRING(24),
+        type: Sequelize.STRING(32),
         unique: true,
         allowNull: false
     }

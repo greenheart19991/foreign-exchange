@@ -12,7 +12,7 @@ const up = (qi, Sequelize) => qi.sequelize.transaction(
                 onDelete: 'cascade'
             },
             key: {
-                type: Sequelize.STRING(24),
+                type: Sequelize.STRING(32),
                 unique: true,
                 allowNull: false
             }
