@@ -1,6 +1,7 @@
 const httpStatus = require('http-status-codes');
 const getKeyOperation = require('./operations/get_key');
 const createKeyOperation = require('./operations/create_key');
+const deleteKeyOperation = require('./operations/delete_key');
 const { KEY_ERROR_USER_MULTIPLE_KEYS } = require('./constants/error_codes');
 
 const get = async (req, res) => {
@@ -34,7 +35,16 @@ const create = async (req, res) => {
         .json(result);
 };
 
+const remove = async (req, res) => {
+    const { userId } = req.query;
+    const count = await deleteKeyOperation(userId);
+
+    return res.status(httpStatus.OK)
+        .json({ count });
+};
+
 module.exports = {
     get,
-    create
+    create,
+    remove
 };

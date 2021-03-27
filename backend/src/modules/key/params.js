@@ -16,7 +16,14 @@ const createSchema = {
     })
 };
 
+const removeSchema = {
+    query: Joi.object({
+        userId: userIdSchema
+    })
+};
+
 module.exports = {
     getSchema,
-    createSchema
+    createSchema,
+    removeSchema
 };
