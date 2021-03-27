@@ -37,6 +37,21 @@ const listSchema = {
     })
 };
 
+const createSchema = {
+    body: Joi.object({
+        recipientId: Joi.number()
+            .integer()
+            .required(),
+        subscriptionId: Joi.number()
+            .integer()
+            .required(),
+        endTimestamp: Joi.date()
+            .timestamp()
+            .allow(null)
+    })
+};
+
 module.exports = {
-    listSchema
+    listSchema,
+    createSchema
 };

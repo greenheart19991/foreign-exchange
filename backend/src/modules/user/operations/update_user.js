@@ -10,16 +10,16 @@ const {
     USER_ERROR_EMAIL_ALREADY_EXISTS
 } = require('../constants/error_codes');
 
-const updateUserOperation = async (id, data, sessionUserPlain) => {
-    if (sessionUserPlain.id === id) {
+const updateUserOperation = async (id, data, sessionUser) => {
+    if (sessionUser.id === id) {
         let error;
 
-        if (Object.prototype.hasOwnProperty.call(data, 'role')) {
+        if (_.has(data, 'role')) {
             error = new OperationError(
                 USER_ERROR_FORBIDDEN_SET_ROLE,
                 'Setting role for yourself is not allowed'
             );
-        } else if (Object.prototype.hasOwnProperty.call(data, 'isActive')) {
+        } else if (_.has(data, 'isActive')) {
             error = new OperationError(
                 USER_ERROR_FORBIDDEN_SET_IS_ACTIVE,
                 'Setting isActive for yourself is not allowed'
@@ -48,7 +48,7 @@ const updateUserOperation = async (id, data, sessionUserPlain) => {
     }
 
     if (
-        Object.prototype.hasOwnProperty.call(data, 'email')
+        _.has(data, 'email')
         && data.email !== user.email
     ) {
         const userByNewEmail = await User.findOne({

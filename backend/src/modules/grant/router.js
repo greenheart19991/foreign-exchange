@@ -4,7 +4,7 @@ const authenticate = require('../../middleware/authenticate');
 const authorize = require('../../middleware/authorization/authorize');
 const { or, hasRole } = require('../../middleware/authorization/validators/interface');
 const { ROLE_ADMIN } = require('../../constants/roles');
-const { listSchema } = require('./params');
+const { listSchema, createSchema } = require('./params');
 const { isMyGrants } = require('./access/interface');
 const controller = require('./controller');
 
@@ -22,6 +22,16 @@ router.route('/')
             )
         ),
         controller.list
+    );
+
+router.route('/')
+    .post(
+        validator.body(createSchema.body),
+        authenticate,
+        authorize(
+            hasRole([ROLE_ADMIN])
+        ),
+        controller.create
     );
 
 module.exports = router;

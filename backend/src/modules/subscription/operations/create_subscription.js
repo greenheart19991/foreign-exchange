@@ -8,18 +8,18 @@ const {
 } = require('../constants/error_codes');
 
 const createSubscriptionOperation = async (data) => {
-    const nowMs = Date.now();
+    const now = new Date();
     const {
         name,
         periodType,
         periods,
         price,
         requests,
-        startTimestamp: startTimestampMs = nowMs,
-        endTimestamp: endTimestampMs = null
+        startTimestamp = now,
+        endTimestamp = null
     } = data;
 
-    if (startTimestampMs < nowMs) {
+    if (startTimestamp < now) {
         const error = new OperationError(
             SUBS_ERROR_START_TS_LT_NOW,
             'Start timestamp cannot be less than now'
@@ -31,7 +31,7 @@ const createSubscriptionOperation = async (data) => {
         };
     }
 
-    if (endTimestampMs !== null && endTimestampMs <= startTimestampMs) {
+    if (endTimestamp !== null && endTimestamp <= startTimestamp) {
         const error = new OperationError(
             SUBS_ERROR_END_TS_LTE_START_TS,
             'End timestamp must be greater than start timestamp'
@@ -67,8 +67,8 @@ const createSubscriptionOperation = async (data) => {
         periods,
         price,
         requests,
-        startTimestamp: startTimestampMs,
-        endTimestamp: endTimestampMs
+        startTimestamp,
+        endTimestamp
     });
 
     return {

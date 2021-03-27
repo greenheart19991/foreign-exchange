@@ -1,7 +1,7 @@
 const httpStatus = require('http-status-codes');
 const { getReadOptions } = require('../../helpers/crud');
 const readOrdersOperation = require('./operations/read_orders');
-const createOrdersOperation = require('./operations/create_order');
+const createOrderOperation = require('./operations/create_order');
 const {
     ORDER_ERROR_SUB_NOT_FOUND,
     ORDER_ERROR_SUB_ARCHIVED,
@@ -18,7 +18,7 @@ const list = async (req, res) => {
 
 const create = async (req, res) => {
     const { userId, subscriptionId } = req.body;
-    const { result, error } = await createOrdersOperation({ userId, subscriptionId });
+    const { result, error } = await createOrderOperation({ userId, subscriptionId });
 
     if (error) {
         if (error.code === ORDER_ERROR_SUB_NOT_FOUND) {

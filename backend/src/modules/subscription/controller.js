@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const httpStatus = require('http-status-codes');
 const { getReadOptions } = require('../../helpers/crud');
 const readSubscriptionsOperation = require('./operations/read_subscriptions');
@@ -52,9 +53,17 @@ const create = async (req, res) => {
         periods,
         price,
         requests,
-        startTimestamp,
-        endTimestamp
+        startTimestamp: startTimestampMs,
+        endTimestamp: endTimestampMs
     } = req.body;
+
+    const startTimestamp = _.isNumber(startTimestampMs)
+        ? new Date(startTimestampMs)
+        : startTimestampMs;
+
+    const endTimestamp = _.isNumber(endTimestampMs)
+        ? new Date(endTimestampMs)
+        : endTimestampMs;
 
     const { result, error } = await createSubscriptionOperation({
         name,

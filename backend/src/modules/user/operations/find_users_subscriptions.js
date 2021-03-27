@@ -109,23 +109,23 @@ const findUsersSubscriptionsOperation = async (userIds, timestamp) => {
         raw: true
     });
 
-    const usersCurrentSubscriptions = userIds.reduce((acc, userId) => {
-        const dsc = usersLastSubscriptions.find((r) => r.userId === userId);
-        if (!dsc) {
-            return acc;
-        }
+    const usersCurrentSubscriptions = usersLastSubscriptions.reduce((acc, dsc) => {
+        const subscription = subscriptions.find(
+            ({ id }) => id === dsc.subscriptionId
+        );
 
-        const subscription = subscriptions.find(({ id }) => id === dsc.subscriptionId);
-
-        const endTimestamp = dsc.endTimestamp
-            || getSubscriptionEndTimestamp(dsc.startTimestamp, subscription.periodType, subscription.periods);
+        const endTimestamp = dsc.endTimestamp || getSubscriptionEndTimestamp(
+            dsc.startTimestamp,
+            subscription.periodType,
+            subscription.periods
+        );
 
         if (endTimestamp < timestamp) {
             return acc;
         }
 
         acc.push({
-            userId,
+            userId: dsc.userId,
             subscription
         });
 
