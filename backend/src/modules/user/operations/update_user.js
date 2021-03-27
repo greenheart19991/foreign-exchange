@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const { User } = require('../../../models');
 const OperationError = require('../../../errors/operation_error');
-const encryptionService = require('../../../services/BCryptEncryptionService');
+const hashService = require('../../../services/BCryptHashService');
 const { getPlainData } = require('../../../helpers/mapper');
 const {
     USER_ERROR_USER_NOT_FOUND,
@@ -71,7 +71,7 @@ const updateUserOperation = async (id, data, sessionUser) => {
 
     const values = _.omit(data, ['password']);
     if (data.password) {
-        values.password = await encryptionService.encrypt(data.password);
+        values.password = await hashService.hash(data.password);
     }
 
     const updatedUser = await user.update(values);

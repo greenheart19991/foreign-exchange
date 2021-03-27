@@ -1,12 +1,12 @@
 const bcrypt = require('bcrypt');
 const config = require('../../config/config');
 
-class BCryptEncryptionService {
+class BCryptHashService {
     constructor({ saltRounds }) {
         this._saltRounds = saltRounds;
     }
 
-    async encrypt(str) {
+    async hash(str) {
         return bcrypt.hash(str, this._saltRounds);
     }
 
@@ -15,6 +15,6 @@ class BCryptEncryptionService {
     }
 }
 
-module.exports = new BCryptEncryptionService({
+module.exports = new BCryptHashService({
     saltRounds: config.bcrypt.saltRounds
 });

@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const { User } = require('../../../models');
 const OperationError = require('../../../errors/operation_error');
-const encryptionService = require('../../../services/BCryptEncryptionService');
+const hashService = require('../../../services/BCryptHashService');
 const { ROLE_USER } = require('../../../constants/roles');
 const { AUTH_ERROR_EMAIL_ALREADY_EXISTS } = require('../constants/error_codes');
 const { getPlainData } = require('../../../helpers/mapper');
@@ -25,13 +25,13 @@ const signupOperation = async ({ firstName, lastName, email, password }) => {
         };
     }
 
-    const encryptedPassword = await encryptionService.encrypt(password);
+    const hash = await hashService.hash(password);
 
     const createdUser = await User.create({
         firstName,
         lastName,
         email,
-        password: encryptedPassword,
+        password: hash,
         role: ROLE_USER,
         isActive: true
     });

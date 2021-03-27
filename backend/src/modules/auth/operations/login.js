@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const { User } = require('../../../models');
 const OperationError = require('../../../errors/operation_error');
-const encryptionService = require('../../../services/BCryptEncryptionService');
+const hashService = require('../../../services/BCryptHashService');
 const {
     AUTH_ERROR_USER_NOT_FOUND,
     AUTH_ERROR_INVALID_PASSWORD
@@ -22,7 +22,7 @@ const loginOperation = async (email, password) => {
         };
     }
 
-    const isPasswordValid = await encryptionService.compare(password, user.password);
+    const isPasswordValid = await hashService.compare(password, user.password);
 
     if (!isPasswordValid) {
         const error = new OperationError(AUTH_ERROR_INVALID_PASSWORD, 'Invalid password');
