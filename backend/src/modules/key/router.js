@@ -2,8 +2,8 @@ const Router = require('express-promise-router');
 const { createValidator } = require('express-joi-validation');
 const authenticate = require('../../middleware/authenticate');
 const authorize = require('../../middleware/authorization/authorize');
-const { getSchema } = require('./params');
-const { isMyKey } = require('./access/interface');
+const { getSchema, createSchema } = require('./params');
+const { isMyKey, isForMe } = require('./access/interface');
 const controller = require('./controller');
 
 const router = Router();
@@ -23,6 +23,16 @@ router.route('/')
             isMyKey
         ),
         controller.get
+    );
+
+router.route('/')
+    .post(
+        validator.body(createSchema.body),
+        authenticate,
+        authorize(
+            isForMe
+        ),
+        controller.create
     );
 
 module.exports = router;

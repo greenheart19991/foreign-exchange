@@ -1,12 +1,20 @@
-const { isMyKey } = require('./validators');
+const { belongsToMe } = require('./validators');
 
 const isMyKeyInterface = (req) => {
     const { user } = req;
     const { userId } = req.query;
 
-    return isMyKey(user, userId);
+    return belongsToMe(user, userId);
+};
+
+const isForMeInterface = (req) => {
+    const { user } = req;
+    const { userId } = req.body;
+
+    return belongsToMe(user, userId);
 };
 
 module.exports = {
-    isMyKey: isMyKeyInterface
+    isMyKey: isMyKeyInterface,
+    isForMe: isForMeInterface
 };

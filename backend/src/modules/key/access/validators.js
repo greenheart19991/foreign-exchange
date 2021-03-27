@@ -1,5 +1,5 @@
-const isMyKey = (userMe, userId = {}) => userMe.id === userId;
+const belongsToMe = (userMe, userId) => userMe.id === userId;
 
 module.exports = {
-    isMyKey
+    belongsToMe
 };

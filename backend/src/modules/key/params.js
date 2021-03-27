@@ -10,6 +10,13 @@ const getSchema = {
     })
 };
 
+const createSchema = {
+    body: Joi.object({
+        userId: userIdSchema
+    })
+};
+
 module.exports = {
-    getSchema
+    getSchema,
+    createSchema
 };
