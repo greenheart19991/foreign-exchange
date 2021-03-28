@@ -20,9 +20,9 @@ const readGrantsOperation = async (options) => {
             exclude: ['committerId', 'subscriptionId']
         },
         where,
-        sort,
-        offset,
-        limit
+        order: sort,
+        limit,
+        offset
     });
 
     const results = grants.map((grant) => {

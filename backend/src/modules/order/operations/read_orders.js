@@ -9,9 +9,9 @@ const readOrdersOperation = async (options) => {
         include: { model: Subscription },
         attributes: { exclude: ['subscriptionId'] },
         where,
-        sort,
-        offset,
-        limit
+        order: sort,
+        limit,
+        offset
     });
 
     const results = orders.map((order) => {

@@ -8,9 +8,9 @@ const readUsersOperation = async (options) => {
     const { rows: users, count } = await User.findAndCountAll({
         attributes: { exclude: ['password'] },
         where,
-        sort,
-        offset,
+        order: sort,
         limit,
+        offset,
         raw: true
     });
 

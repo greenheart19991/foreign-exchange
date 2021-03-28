@@ -22,9 +22,9 @@ const readSubscriptionsOperation = async (readUnpublished, options) => {
 
     const { rows, count } = await Subscription.findAndCountAll({
         where,
-        sort,
-        offset,
+        order: sort,
         limit,
+        offset,
         raw: true
     });
 
