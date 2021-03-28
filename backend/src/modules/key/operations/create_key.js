@@ -28,7 +28,7 @@ const createKeyOperation = async ({ userId }) => {
     if (user.Key) {
         const error = new OperationError(
             KEY_ERROR_USER_MULTIPLE_KEYS,
-            'User cannot have more than 1 key'
+            'User already has a key'
         );
 
         return {

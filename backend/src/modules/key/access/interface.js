@@ -2,7 +2,7 @@ const { belongsToMe } = require('./validators');
 
 const isMyKeyInterface = (req) => {
     const { user } = req;
-    const { userId } = req.query;
+    const { userId } = req.params;
 
     return belongsToMe(user, userId);
 };

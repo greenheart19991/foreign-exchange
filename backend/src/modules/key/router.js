@@ -9,12 +9,12 @@ const controller = require('./controller');
 const router = Router();
 const validator = createValidator();
 
-// it's an odd api design, but it's temporary
-// (until Key has separate id and User could have many Keys).
+// it's a bit odd resource design, but it's temporary
+// (until Key has separate id and User can have many Keys).
 
-router.route('/')
+router.route('/:userId')
     .get(
-        validator.query(getSchema.query),
+        validator.params(getSchema.params),
         authenticate,
         authorize(
             isMyKey
@@ -32,9 +32,9 @@ router.route('/')
         controller.create
     );
 
-router.route('/')
+router.route('/:userId')
     .delete(
-        validator.query(removeSchema.query),
+        validator.params(removeSchema.params),
         authenticate,
         authorize(
             isMyKey

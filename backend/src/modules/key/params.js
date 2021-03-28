@@ -5,7 +5,7 @@ const userIdSchema = Joi.number()
     .required();
 
 const getSchema = {
-    query: Joi.object({
+    params: Joi.object({
         userId: userIdSchema
     })
 };
@@ -17,7 +17,7 @@ const createSchema = {
 };
 
 const removeSchema = {
-    query: Joi.object({
+    params: Joi.object({
         userId: userIdSchema
     })
 };
