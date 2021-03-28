@@ -43,18 +43,10 @@ const create = async (req, res) => {
                 .json({ message: error.message });
         }
 
-        if (error.code === GRANT_ERROR_RECIPIENT_NOT_FOUND) {
-            return res.status(httpStatus.NOT_FOUND)
-                .json({ message: 'Recipient user not found' });
-        }
-
-        if (error.code === GRANT_ERROR_SUB_NOT_FOUND) {
-            return res.status(httpStatus.NOT_FOUND)
-                .json({ message: 'Subscription not found' });
-        }
-
         if (
-            error.code === GRANT_ERROR_SUB_ARCHIVED
+            error.code === GRANT_ERROR_RECIPIENT_NOT_FOUND
+            || error.code === GRANT_ERROR_SUB_NOT_FOUND
+            || error.code === GRANT_ERROR_SUB_ARCHIVED
             || error.code === GRANT_ERROR_SUB_UNPUBLISHED
             || error.code === GRANT_ERROR_END_TS_GT_SUB_EXP
         ) {

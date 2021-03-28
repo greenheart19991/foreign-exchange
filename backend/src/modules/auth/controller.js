@@ -67,7 +67,7 @@ const signup = async (req, res) => {
     if (error) {
         if (error.code === AUTH_ERROR_EMAIL_ALREADY_EXISTS) {
             return res.status(httpStatus.CONFLICT)
-                .json({ message: 'User already exists' });
+                .json({ message: 'User with such email already exists' });
         }
 
         throw error;

@@ -21,13 +21,9 @@ const create = async (req, res) => {
     const { result, error } = await createOrderOperation({ subscriptionId }, req.user);
 
     if (error) {
-        if (error.code === ORDER_ERROR_SUB_NOT_FOUND) {
-            return res.status(httpStatus.NOT_FOUND)
-                .json({ message: 'Subscription not found' });
-        }
-
         if (
-            error.code === ORDER_ERROR_SUB_ARCHIVED
+            error.code === ORDER_ERROR_SUB_NOT_FOUND
+            || error.code === ORDER_ERROR_SUB_ARCHIVED
             || error.code === ORDER_ERROR_SUB_UNPUBLISHED
         ) {
             return res.status(httpStatus.CONFLICT)
