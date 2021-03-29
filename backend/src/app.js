@@ -28,6 +28,10 @@ if (config.env === 'production') {
     app.set('trust proxy', config.trustProxy);
 }
 
+// TODO: set other headers to comply security
+//  (https://expressjs.com/en/advanced/best-practice-security.html).
+//  Set only those that cannot or should not be set by front-facing proxy.
+
 app.use('/api', router);
 
 app.use((req, res) => {
