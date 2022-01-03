@@ -1,4 +1,4 @@
-const { RequestsUsage } = require('../../../models');
+const { Order, Grant, RequestsUsage } = require('../../../models');
 const findUsersSubscriptionsOperation = require('../../user/operations/find_users_subscriptions');
 const { getPeriodBoundaries } = require('../../../helpers/period');
 
@@ -11,14 +11,54 @@ const getUsageOperation = async (userId) => {
     }
 
     const { subscription } = usersCurrentSubscriptions[0];
+
+    const lastOrder = await Order.findOne({
+        where: {
+            userId,
+            subscriptionId: subscription.id
+        },
+        order: [
+            ['timestamp', 'desc'],
+            ['id', 'desc']
+        ],
+        raw: true
+    });
+
+    const lastGrant = await Grant.findOne({
+        where: {
+            recipientId: userId,
+            subscriptionId: subscription.id
+        },
+        order: [
+            ['timestamp', 'desc'],
+            ['id', 'desc']
+        ],
+        raw: true
+    });
+
+    let timestamp;
+
+    if (lastOrder && lastGrant) {
+        timestamp = lastOrder.timestamp >= lastGrant.timestamp
+            ? lastOrder.timestamp
+            : lastGrant.timestamp;
+    } else if (lastOrder) {
+        timestamp = lastOrder.timestamp;
+    } else if (lastGrant) {
+        timestamp = lastGrant.timestamp;
+    }
+
     const { startTimestamp } = getPeriodBoundaries(
         now,
-        subscription.startTimestamp,
+        timestamp,
         subscription.periodType
     );
 
     const usage = await RequestsUsage.findOne({
-        where: { periodStartTimestamp: startTimestamp },
+        where: {
+            userId,
+            periodStartTimestamp: startTimestamp
+        },
         order: [
             ['periodStartTimestamp', 'desc'],
             ['id', 'desc']
