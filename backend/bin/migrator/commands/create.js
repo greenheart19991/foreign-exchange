@@ -28,42 +28,39 @@ const toTimeString = (date) => {
     return `${YYYY}${MM}${DD}${hh}${mm}${ss}${SSS}`;
 };
 
-const createMigration = (title) => {
-    if (!title) {
-        throw new Error('Title for migration not specified');
+const createMigrationFile = (migrationName) => {
+    if (!migrationName) {
+        throw new Error('Name for migration is not specified');
     }
 
     const prefix = toTimeString(new Date());
-    const name = `${prefix}_${title}`;
+    const id = `${prefix}_${migrationName}`;
     const ext = 'js';
 
     const templatePath = path.resolve(__dirname, `../templates/migration.${ext}`);
-    const destPath = path.resolve(__dirname, `../../../migrations/${config.env}/${name}.${ext}`);
+    const destPath = path.resolve(__dirname, `../../../migrations/${config.env}/${id}.${ext}`);
 
     fs.copyFileSync(templatePath, destPath, fs.constants.COPYFILE_EXCL);
 };
 
-const controller = (...args) => {
-    if (args.length > 1) {
+const controller = (migrationName, cmd, args) => {
+    if (args) {
         program.outputHelp();
         process.exitCode = 1;
 
         return;
     }
 
-    const cmd = args[args.length - 1];
     try {
-        createMigration(cmd.title);
+        createMigrationFile(migrationName);
     } catch (e) {
         console.error(e);
         process.exitCode = 1;
     }
 };
 
-// 'title' because of 'name' is reserved getter
-
 program
-    .option('-t, --title <migration_name>', 'Migration name')
+    .arguments('<migration_name>')
     .action(controller);
 
 program.parse(process.argv);

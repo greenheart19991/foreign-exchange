@@ -5,15 +5,14 @@ const migrateAll = async () => umzug.up();
 
 const migrateTo = async (id) => umzug.up({ to: id });
 
-const controller = async (...args) => {
-    if (args.length > 1) {
+const controller = async (cmd, args) => {
+    if (args) {
         program.outputHelp();
         process.exitCode = 1;
 
         return;
     }
 
-    const cmd = args[args.length - 1];
     try {
         if (cmd.to) {
             await migrateTo(cmd.to);
