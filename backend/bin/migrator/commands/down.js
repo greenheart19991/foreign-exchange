@@ -8,9 +8,10 @@ const revertLast = async () => {
         throw new Error('Already at initial state');
     }
 
-    const prev = path.basename(migrations[0].file, '.js');
+    const last = migrations[migrations.length - 1];
+    const lastId = path.basename(last.file, '.js');
 
-    return umzug.down({ to: prev });
+    return umzug.down(lastId);
 };
 
 const revertTo = async (id) => umzug.down({ to: id });
