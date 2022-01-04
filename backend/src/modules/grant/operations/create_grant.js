@@ -85,13 +85,13 @@ const createGrantOperation = async (data, sessionUser) => {
         };
     }
 
-    const subscriptionExpiresAt = getSubscriptionEndTimestamp(
+    const expiresAtByDefault = getSubscriptionEndTimestamp(
         now,
         subscription.periodType,
         subscription.periods
     );
 
-    if (endTimestamp !== null && subscriptionExpiresAt < endTimestamp) {
+    if (endTimestamp !== null && endTimestamp >= expiresAtByDefault) {
         const error = new OperationError(
             GRANT_ERROR_END_TS_GT_SUB_EXP,
             'End timestamp cannot be after time subscription expires'

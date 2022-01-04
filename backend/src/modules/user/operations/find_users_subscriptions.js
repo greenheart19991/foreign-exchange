@@ -120,7 +120,7 @@ const findUsersSubscriptionsOperation = async (userIds, timestamp) => {
             subscription.periods
         );
 
-        if (endTimestamp < timestamp) {
+        if (timestamp >= endTimestamp) {
             return acc;
         }
 
