@@ -47,7 +47,6 @@ const createSchema = {
             .required(),
         endTimestamp: Joi.date()
             .timestamp()
-            .allow(null)
     })
 };
 
