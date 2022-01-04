@@ -9,7 +9,7 @@
         "end_timestamp": null
     },
     {
-        "name": "Sub Month Full",
+        "name": "Sub Month Max",
         "period_type": "month",
         "periods": 1,
         "price": 49,
@@ -18,7 +18,7 @@
         "end_timestamp": null
     },
     {
-        "name": "Sub Year Full",
+        "name": "Sub Year Max",
         "period_type": "month",
         "periods": 12,
         "price": 539,
@@ -27,7 +27,7 @@
         "end_timestamp": null
     },
     {
-        "name": "Sub Year Req-Unlimited Full",
+        "name": "Sub Year Req-Unlimited Max",
         "period_type": "year",
         "periods": 1,
         "price": 690,

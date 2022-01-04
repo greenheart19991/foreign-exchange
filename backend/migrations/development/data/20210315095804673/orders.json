@@ -6,7 +6,7 @@
     },
     {
         "user": "alexander.crist@gmail.com",
-        "subscription": "Sub Year Full",
+        "subscription": "Sub Year Max",
         "timestamp": "2020-10-18T20:24:00.000Z"
     },
     {
@@ -16,7 +16,7 @@
     },
     {
         "user": "bret.cummings@gmail.com",
-        "subscription": "Sub Month Full",
+        "subscription": "Sub Month Max",
         "timestamp": "2020-12-02T09:27:00.000Z"
     },
     {
@@ -31,7 +31,7 @@
     },
     {
         "user": "hyman.beatty@gmail.com",
-        "subscription": "Sub Month Full",
+        "subscription": "Sub Month Max",
         "timestamp": "2021-01-12T07:15:00.000Z"
     }
 ]
