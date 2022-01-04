@@ -1,0 +1,28 @@
+definitions:
+
+  Bank:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+        description: Bank ID
+        example: 2
+      countryId:
+        type: integer
+        format: int32
+        description: Country ID
+        example: 1
+      labelName:
+        type: string
+        description: Well-known short name (label)
+        example: ПриватБанк
+      fullName:
+        type: string
+        description: Bank public full name
+        example: Акціонерне Товариство Комерційний Банк 'ПриватБанк'
+    required:
+      - id
+      - countryId
+      - labelName
+      - fullName

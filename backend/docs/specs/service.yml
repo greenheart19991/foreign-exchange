@@ -1,0 +1,23 @@
+swagger: "2.0"
+info:
+  description: >
+    (TODO) This is an example of how the documentation will look like
+    and how it is structured.
+  version: 1.0.0
+  title: Foreign Exchange API
+  contact:
+    name: Ivan Kolesnik
+    email: greenheart19991@gmail.com
+
+host: "{this_host}"
+basePath: /api
+schemes:
+  - http
+
+tags:
+  - name: countries
+    description: Countries CRUD operations
+  - name: banks
+    description: Banks CRUD operations
+  - name: currencies
+    description: Currencies CRUD operations

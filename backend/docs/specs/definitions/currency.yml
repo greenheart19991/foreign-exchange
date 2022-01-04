@@ -1,0 +1,26 @@
+definitions:
+
+  Currency:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+        description: Currency ID
+        example: 120
+      numCode:
+        type: string
+        minLength: 3
+        maxLength: 3
+        description: ISO 4217 numeric code
+        example: "840"
+      textCode:
+        type: string
+        minLength: 3
+        maxLength: 3
+        description: ISO 4217 alphabetic code
+        example: "USD"
+    required:
+      - id
+      - numCode
+      - textCode

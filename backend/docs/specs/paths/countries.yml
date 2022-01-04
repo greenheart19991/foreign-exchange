@@ -1,0 +1,28 @@
+paths:
+
+  /countries:
+    get:
+      tags:
+        - countries
+      summary: List Coutries
+      description: Returns list of known Countries
+      operationId: getCountries
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successfull operation
+          schema:
+            type: array
+            items:
+              # ../definitions/country.yml
+              $ref: '#/definitions/Country'
+        400:
+          # ../responses/common.yml
+          $ref: '#/responses/400'
+        404:
+          # ../responses/common.yml
+          $ref: '#/responses/404'
+        500:
+          # ../responses/common.yml
+          $ref: '#/responses/500'
