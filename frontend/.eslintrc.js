@@ -40,6 +40,7 @@ module.exports = {
             'error',
             4
         ],
+        'react/jsx-one-expression-per-line': 'off',
         'react/jsx-fragments': [
             'error',
             'element'
@@ -48,6 +49,7 @@ module.exports = {
             'error',
             'prefer-single'
         ],
+        'import/prefer-default-export': 'off'
     },
     overrides: [
         {

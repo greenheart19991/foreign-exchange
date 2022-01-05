@@ -1,0 +1,39 @@
+.paper {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.head-cell {
+    font-weight: 400;
+}
+
+.sort-label {
+    margin-right: -27px;
+}
+
+.loading-cell {
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+.footer-row {
+    &:last-of-type td {
+        border-bottom: none;
+    }
+}
+
+.pagination-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.summary {
+    font-size: 0.875rem;
+}
+
+.pagination-root {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+}

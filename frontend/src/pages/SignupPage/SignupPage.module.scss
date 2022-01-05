@@ -1,0 +1,26 @@
+.page {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 20rem;
+    padding: 1.625rem;
+}
+
+.title {
+    margin-bottom: 1.325rem;
+}
+
+.field {
+    margin-bottom: 0.75rem;
+}
+
+.actions-container {
+    padding-top: 0.625rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

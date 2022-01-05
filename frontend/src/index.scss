@@ -1,1 +1,13 @@
+@use 'assets/colors';
 @use 'assets/fonts';
+
+body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: map-get(colors.$theme-palette, 'background-page');
+}
+
+#root {
+    height: 100%;
+}

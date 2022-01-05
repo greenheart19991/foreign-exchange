@@ -1,0 +1,1 @@
+export { createAuthorizationController } from './AuthorizationController';

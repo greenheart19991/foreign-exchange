@@ -1,0 +1,19 @@
+.grid-container {
+    width: calc(100% + 1.25rem);
+    margin: -0.625rem;
+}
+
+.grid-item {
+    padding: 0.625rem;
+}
+
+.actions-container {
+    padding-top: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.alert {
+    margin-bottom: 1.5rem;
+}
