@@ -1,0 +1,42 @@
+@use '../../assets/colors';
+
+.loader {
+    height: auto;
+}
+
+.is-active-root {
+    margin-bottom: 1.25rem;
+    margin-left: -7px;
+}
+
+.is-active-label {
+    margin-left: 0.625rem;
+}
+
+.actions-block {
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.danger-button {
+    background-color: map-get(colors.$theme-palette, 'error-dark');
+    color: map-get(colors.$theme-palette, 'error-contrast-text');
+
+    &:hover {
+        background-color: adjust-color(
+            map-get(colors.$theme-palette, 'error-dark'),
+            $saturation: 20%,
+            $lightness: -7%
+        );
+    }
+
+    &:disabled {
+        background-color: map-get(colors.$theme-palette, 'error-light');
+    }
+}
+
+.error-block {
+    margin-bottom: 2rem;
+}

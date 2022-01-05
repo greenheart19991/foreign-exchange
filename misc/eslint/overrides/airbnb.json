@@ -70,5 +70,6 @@
             }
         }
     ],
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "no-template-curly-in-string": "off"
 }

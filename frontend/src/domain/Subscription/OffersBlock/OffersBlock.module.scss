@@ -1,0 +1,36 @@
+@use '../../../assets/colors';
+
+.subs-paper {
+    border-radius: 15px;
+
+    &.no-tabs {
+        border: none;
+    }
+}
+
+.tab-list {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: map-get(colors.$theme-palette, 'gray-200');
+
+    button:first-of-type {
+        border-top-left-radius: 14px;
+    }
+}
+
+.tab-panel {
+    padding: 1.25rem;
+}
+
+.grid-container {
+    width: calc(100% + 1.25rem);
+    margin: -0.625rem;
+}
+
+.grid-item {
+    padding: 0.625rem;
+}
+
+.error-block {
+    margin-bottom: 1.5rem;
+}

@@ -1,0 +1,32 @@
+@use '../../assets/colors';
+
+.select {
+    padding-top: 0.938rem;
+    padding-bottom: 1rem;
+}
+
+.label {
+    &:not(:global(.Mui-focused)) {
+        transform: translate(0.875rem, 1.063rem) scale(1);
+
+        &:global(.MuiInputLabel-shrink) {
+            transform: translate(0.875rem, -0.375rem) scale(0.75);
+        }
+    }
+}
+
+.select-ro {
+    &:global(.Mui-disabled) {
+        color: map-get(colors.$theme-palette, 'gray-900');
+    }
+}
+
+.label-ro {
+    &:global(.Mui-disabled) {
+        color: map-get(colors.$theme-palette, 'gray-700');
+    }
+}
+
+.menu-paper {
+    border-radius: 8px;
+}

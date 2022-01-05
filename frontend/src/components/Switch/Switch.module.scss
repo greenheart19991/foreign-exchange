@@ -1,0 +1,11 @@
+.label-ro {
+    cursor: default;
+}
+
+.switch-base-ro {
+    cursor: default;
+
+    &:hover {
+        background-color: inherit;
+    }
+}

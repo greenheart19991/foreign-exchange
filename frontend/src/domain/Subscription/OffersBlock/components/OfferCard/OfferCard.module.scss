@@ -1,0 +1,38 @@
+.card {
+    width: 15.625rem;
+    padding: 1.25rem;
+}
+
+.card-content {
+    padding: 0;
+}
+
+.label {
+    margin-bottom: 1.25rem;
+}
+
+.title {
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+.pos {
+    margin-bottom: 1.25rem;
+    text-align: center;
+}
+
+.price {
+    font-size: 1.15rem;
+    text-align: center;
+}
+
+.card-actions {
+    padding: 1.25rem 0 0.625rem;
+    display: flex;
+    justify-content: center;
+}
+
+.action-button {
+    padding-left: 30px;
+    padding-right: 30px;
+}
