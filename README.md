@@ -376,13 +376,15 @@ too.
   express-joi-validation), backend responses with plain text, whereas
   if the data are invalidated at the domain level, it sends a json
   object ({ message: '...' }) as it does for all 'message' responses
-  in the project. Fix it (unify the interface).  
+  in the project. Fix it (unify the interface).
+
   \+ the messages look different (see the source code of
   express-joi-validation; it adds this text in front of the main message
   that says which part of the request didn't pass the validation - body,
   query etc. For example: 'Error validating request body. ...'. Messages
   from domain level, in contrast, do not have such a supplement
   (basically it's OK, but maybe it should be changed).
+
 - [ ] ***backend***: api level validator of 'where' param of list
   operations is quite simple so far; if user configures this param
   incorrectly while passing the validation, Sequelize will throw an
@@ -424,7 +426,7 @@ too.
 - [ ] audit dependencies (root, frontend, backend);
 - [ ] complete this readme;
 - [ ] write the doc on setting up the app for prod (nginx, redis,
-  collecting app logs) (or at least notes);
+  collecting app logs) (or at least notes).
 
 ## So what has been done?
 
