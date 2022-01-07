@@ -1,4 +1,4 @@
-// Passwords encrypted with bcrypt.
+// Passwords were encrypted with bcrypt.
 // Salt rounds = 10.
 
 module.exports = [

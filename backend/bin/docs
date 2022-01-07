@@ -7,8 +7,8 @@ cd "$current_dir"
 usage() {
   echo -e "Usage: docs [command]\n"
   echo    "Commands:"
-  echo    "  build    Build docs page"
-  echo -e "  dev      Start dev mode: automatically rebuild docs page on any specs changes\n"
+  echo    "  build    Build docs web-page"
+  echo -e "  dev      Start dev mode: automatically rebuild docs web-page on any specs change\n"
 }
 
 case "$1" in

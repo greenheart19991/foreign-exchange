@@ -1,8 +1,8 @@
 swagger: "2.0"
 info:
   description: >
-    (TODO) This is an example of how the documentation will look like
-    and how it is structured.
+    This is an EXAMPLE of how the documentation looks like and
+    how it is structured.
   version: 1.0.0
   title: Foreign Exchange API
   contact:
